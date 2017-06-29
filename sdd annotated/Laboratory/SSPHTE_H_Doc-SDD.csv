@@ -1,0 +1,8 @@
+Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
+SEQN,"Respondent sequence number","Respondent sequence number.",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
+WTSB2YR,"Environmental B 2-year weights","Environmental B 2-year weights",," Both males and females 6 YEARS - 150 YEARS",chear:Weight,,obo:UO_0000036,,,,,,,,
+URXUCR ,"Creatinine, urine (mg/dL)","Creatinine, urine (mg/dL)",," Both males and females 6 YEARS - 150 YEARS",,,chear:milligram_per_deciliter,,,,,,,,
+SSURMHBP,"Mono-3-hydroxy-n-butyl phthalate (ng/mL)","Mono-3-hydroxy-n-butyl phthalate (ng/mL)",," Both males and females 6 YEARS - 150 YEARS",,,obo:UO_0000275,,,,,,,,
+SDUMHBPL,"Mono-3-hydroxy-n-butyl phthalate cmt","Mono-3-hydroxy-n-butyl phthalate comment code",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
+SSURHIBP,"Mono-2-hydroxy-iso-butyl phthlte (ng/mL)","Mono-2-hydroxy-iso-butyl phthalate (ng/mL)",," Both males and females 6 YEARS - 150 YEARS",,,obo:UO_0000275,,,,,,,,
+SDUHIBPL,"Mono-2-hydroxy-iso-butyl phthlte cmt","Mono-2-hydroxy-iso-butyl phthalate comment code",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,

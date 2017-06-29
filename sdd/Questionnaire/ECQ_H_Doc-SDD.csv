@@ -1,0 +1,13 @@
+Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
+SEQN,"Respondent sequence number","Respondent sequence number.",," Both males and females 0 YEARS - 15 YEARS",,,,,,,,,,,
+ECD010,"Mother's age when born","First I have some questions about {SP NAME's} birth. How old was {SP NAME's} biological mother when {s/he} was born?","ENTER AGE IN YEARS"," Both males and females 0 YEARS - 15 YEARS",sio:Age,??mother,,,,,,,,,
+ECQ020,"Mother smoked when pregnant","Did {SP NAME's} biological mother smoke at any time while she was pregnant with {him/her}?",," Both males and females 0 YEARS - 15 YEARS",,??mother,,,,,,,,,
+ECD070A,"Weight at birth, pounds","How much did {SP NAME} weigh at birth?","IF ANSWER GIVEN IN POUNDS ONLY, PROBE FOR OUNCES.  IF ANSWER GIVEN IN EXACT POUNDS, ENTER NUMBER OF POUNDS AND 0 OUNCES.  ENTER NUMBER OF POUNDS."," Both males and females 0 YEARS - 15 YEARS",chear:Weight,,,,,,,,,,
+ECD070B,"Weight at birth, ounces","How much did {SP NAME} weigh at birth?","ENTER NUMBER OF OUNCES"," Both males and females 0 YEARS - 15 YEARS",chear:Weight,,,,,,,,,,
+ECQ075,,,"BOX 1.  CHECK ITEM:  IF REFUSED (CODE 7777) OR DON'T KNOW (CODE 9999) TO ECD070A, CONTINUE; OTHERWISE, GO TO ECQ095 (BOX 2)."," Both males and females 0 YEARS - 15 YEARS",,,chebi:27007,,,,,,,,
+ECQ080,"Weight more/less than 5.5 lbs","Did {SP NAME} weigh . . .",," Both males and females 0 YEARS - 15 YEARS",chear:Weight,,,,,,,,,,
+ECQ090,"Weight more/less than 9.0 lbs","Did {SP NAME} weigh . . .",," Both males and females 0 YEARS - 15 YEARS",chear:Weight,,,,,,,,,,
+ECQ095,,,"BOX 2.  CHECK ITEM ECQ095:  IF SP AGE = 2-15 YEARS CONTINUE; OTHERWISE, GO TO END OF SECTION."," Both males and females 0 YEARS - 15 YEARS",sio:Age,,chebi:27007,,,,,,,,
+WHQ030E,"How do you consider your child's weight","How do you consider {SP} weight?",," Both males and females 2 YEARS - 15 YEARS",chear:Weight,??child,,,,,,,,,
+MCQ080E,"Your child was overweight","Has a doctor or health professional ever told you that {SP} was overweight?",," Both males and females 2 YEARS - 15 YEARS",chear:Weight,??child,,,,,,,,,
+ECQ150,"Help your child control weight","Are you now doing anything to help {SP} control {his/her} weight?",," Both males and females 2 YEARS - 15 YEARS",chear:Weight,??child,,,,,,,,,

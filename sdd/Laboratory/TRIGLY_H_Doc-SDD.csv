@@ -1,0 +1,7 @@
+Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
+SEQN,"Respondent sequence number","Respondent sequence number",," Both males and females 12 YEARS - 150 YEARS",,,,,,,,,,,
+WTSAF2YR,"Fasting Subsample 2 Year MEC Weight","Fasting Subsample 2 Year MEC Weight",," Both males and females 12 YEARS - 150 YEARS",chear:Weight,,chebi:27007,,,,,,,,
+LBXTR ,"Triglyceride (mg/dL)","Triglyceride (mg/dL)",," Both males and females 12 YEARS - 150 YEARS",,,chear:milligram_per_deciliter,,,,,,,,
+LBDTRSI,"Triglyceride (mmol/L)","Triglyceride (mmol/L)",," Both males and females 12 YEARS - 150 YEARS",,,chear:millimole_per_liter,,,,,,,,
+LBDLDL,"LDL-cholesterol (mg/dL)","LDL-cholesterol (mg/dL)","LBDLDL = ROUND(LBXTC-(LBXHDD+LBXTR/5) for LBXTR less than or equal to 400 mg/dL, and missing for LBXTR greater than 400 mg/dL"," Both males and females 12 YEARS - 150 YEARS",,,chear:milligram_per_deciliter,,,,,,,,
+LBDLDLSI,"LDL-cholesterol (mmol/L)","LDL-cholesterol (mmol/L)",," Both males and females 12 YEARS - 150 YEARS",,,chear:millimole_per_liter,,,,,,,,

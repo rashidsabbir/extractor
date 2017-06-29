@@ -1,0 +1,6 @@
+Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
+DSDINGID,"INGREDIENT ID NUMBER","Ingredient ID",,,,,,,,,,,,,
+DSDINGR,"INGREDIENT NAME","Ingredient Name",,,,,,,,,,,,,
+DSDBCID,"BLEND COMPONENT ID","Blend component ID",,,,,,,,,,,,,
+DSDBCNAM,"BLEND COMPONENT NAME","Blend component name",,,,,,,,,,,,,
+DSDBCCAT,"BLEND COMPONENT CATEGORY","Blend component category",,,,,,,,,,,,,

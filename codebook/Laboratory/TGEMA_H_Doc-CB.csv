@@ -1,0 +1,9 @@
+Column,Variable,Label
+LBXTTG,1,"Positive"
+LBXTTG,2,"Negative"
+LBXTTG,3,"Weakly positive"
+LBXTTG,.,"Missing"
+LBXEMA,1,"Positive"
+LBXEMA,2,"Negative"
+LBXEMA,3,"Weakly positive"
+LBXEMA,.,"Missing"

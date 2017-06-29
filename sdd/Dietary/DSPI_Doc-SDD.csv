@@ -1,0 +1,12 @@
+Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
+DSDSUPID,"SUPPLEMENT ID NUMBER","Supplement ID Number",,,,,,,,,,,,,
+DSDSUPP,"SUPPLEMENT NAME","Supplement Name",,,,,,,,,,,,,
+DSDSRCE,"SUPPLEMENT INFORMATION SOURCE","Supplement Information Source",,,,,,,,,,,,,
+DSDTYPE,"FORMULATION TYPE","Formulation Type (prenatal, infant\pediatric, standard, or mature)",,,,,,,,,,,,,
+DSDSERVQ,"SERVING SIZE QUANTITY","Serving size quantity",,,,,,,,,,,,,
+DSDSERVU,"SERVING SIZE UNIT","Serving size unit",,,,,,,,,,,,,
+DSDCNTV,"COUNT OF VITAMINS IN THE SUPPLEMENT","Count of vitamins in the supplement, including those in blends",,,,,,,,,,,,,
+DSDCNTM,"COUNT OF MINERALS IN THE SUPPLEMENT","Count of minerals in the supplement, including those in blends",,,,,,,,,,,,,
+DSDCNTA,"COUNT OF AMINO ACIDS IN THE SUPPLEMENT","Count of amino acids in the supplement, including those in blends",,,,,,,,,,,,,
+DSDCNTB,"COUNT OF BOTANICALS IN THE SUPPLEMENT","Count of botanicals in the supplement, including those in blends",,,,,,,,,,,,,
+DSDCNTO,"COUNT OF OTHER INGREDIENTS IN SUPPLEMENT","Count of other ingredients in the supplement, including those in blends",,,,,,,,,,,,,

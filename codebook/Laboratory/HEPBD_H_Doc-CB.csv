@@ -1,0 +1,10 @@
+Column,Variable,Label
+LBXHBC,1,"Positive"
+LBXHBC,2,"Negative"
+LBXHBC,.,"Missing"
+LBDHBG,1,"Positive"
+LBDHBG,2,"Negative"
+LBDHBG,.,"Missing"
+LBDHD,1,"Positive"
+LBDHD,2,"Negative"
+LBDHD,.,"Missing"

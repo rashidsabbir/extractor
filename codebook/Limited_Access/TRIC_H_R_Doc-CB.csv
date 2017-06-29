@@ -1,0 +1,5 @@
+Column,Variable,Label
+URXUTRI,1,"Positive"
+URXUTRI,2,"Negative"
+URXUTRI,3,"Indeterminate"
+URXUTRI,.,"Missing"

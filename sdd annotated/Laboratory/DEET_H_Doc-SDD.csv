@@ -1,0 +1,10 @@
+Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
+SEQN,"Respondent sequence number","Respondent sequence number.",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
+WTSC2YR,"Environmental Subsample C Weights","Environmental Subsample C Weights",," Both males and females 6 YEARS - 150 YEARS",chear:Weight,,,,,,,,,,
+URXUCR,"Creatinine, urine (mg/dL)","Creatinine, urine (mg/dL)",," Both males and females 6 YEARS - 150 YEARS",,,chear:milligram_per_deciliter,,,,,,,,
+URXDEE,"DEET (ug/L)","N, N-Diethy-meta-toluamide (DEET) (ug/L)",," Both males and females 6 YEARS - 150 YEARS",,,obo:UO_0000301,,,,,,,,
+URDDEELC,"DEET comment code","DEET comment code",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
+URXDEA,"DEET acid (ug/L)","3-(Ethlycarbamoyl) benzoic acid (ug/L)",," Both males and females 6 YEARS - 150 YEARS",,,obo:UO_0000301,,,,,,,,
+URDDEALC,"DEET acid comment code","DEET acid comment code",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
+URXDHD,"Desethyl hydroxy DEET (ug/L)","N, N-Diethyl-3-(hydroxymethyl) benzamide (DHMB) (ug/L)",," Both males and females 6 YEARS - 150 YEARS",,,obo:UO_0000301,,,,,,,,
+URDDHDLC,"Desethyl hydroxy DEET Comment Code","Desethyl hydroxy DEET Comment Code",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,

@@ -1,0 +1,4 @@
+Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
+SEQN,"Respondent sequence number","Respondent sequence number.",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
+LBDHDD,"Direct HDL-Cholesterol (mg/dL)","Direct HDL-Cholesterol (mg/dL)",," Both males and females 6 YEARS - 150 YEARS",,,chear:milligram_per_deciliter,,,,,,,,
+LBDHDDSI,"Direct HDL-Cholesterol (mmol/L)","Direct HDL-Cholesterol (mmol/L)",," Both males and females 6 YEARS - 150 YEARS",,,chear:millimole_per_liter,,,,,,,,

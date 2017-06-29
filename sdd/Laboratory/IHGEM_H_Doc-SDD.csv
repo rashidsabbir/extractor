@@ -1,0 +1,10 @@
+Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
+SEQN,"Respondent sequence number","Respondent sequence number.",," Both males and females 1 YEARS - 150 YEARS",,,,,,,,,,,
+WTSH2YR,"Blood metal weights","Blood metal weights",," Both males and females 1 YEARS - 150 YEARS",chear:Weight,,,,,,,,,,
+LBXIHG  ,"Mercury, inorganic (ug/L)","Inorganic mercury, blood (ug/L)",," Both males and females 1 YEARS - 150 YEARS",,,obo:UO_0000301,,,,,,,,
+LBDIHGSI,"Mercury, inorganic (umol/L )","Mercury, inorganic (umol/L )",," Both males and females 1 YEARS - 150 YEARS",,,chebi:25195,,,,,,,,
+LBDIHGLC,"Mercury, inorganic  comment code","Mercury, inorganic comment code",," Both males and females 1 YEARS - 150 YEARS",,,chebi:25195,,,,,,,,
+LBXBGE,"Mercury, ethyl (ug/L)","Mercury, ethyl (ug/L)",," Both males and females 1 YEARS - 150 YEARS",,,obo:UO_0000301,,,,,,,,
+LBDBGELC,"Mercury, ethyl comment code","Mercury, ethyl comment code",," Both males and females 1 YEARS - 150 YEARS",,,chebi:25195,,,,,,,,
+LBXBGM,"Mercury, methyl (ug/L)","Mercury, methyl (ug/L)",," Both males and females 1 YEARS - 150 YEARS",,,obo:UO_0000301,,,,,,,,
+LBDBGMLC,"Mercury, methyl comment code","Mercury, methyl comment code",," Both males and females 1 YEARS - 150 YEARS",,,chebi:25195,,,,,,,,

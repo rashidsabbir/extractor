@@ -1,0 +1,11 @@
+Column,Variable,Label
+PUQ100,1,"Yes"
+PUQ100,2,"No"
+PUQ100,7,"Refused"
+PUQ100,9,"Don't know"
+PUQ100,.,"Missing"
+PUQ110,1,"Yes"
+PUQ110,2,"No"
+PUQ110,7,"Refused"
+PUQ110,9,"Don't know"
+PUQ110,.,"Missing"

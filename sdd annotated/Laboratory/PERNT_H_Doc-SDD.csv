@@ -1,0 +1,10 @@
+Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
+SEQN,"Respondent sequence number","Respondent sequence number.",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
+WTSA2YR,"Subsample A weights","Subsample A weights",," Both males and females 6 YEARS - 150 YEARS",chear:Weight,,,,,,,,,,
+URXUP8,"Urinary perchlorate (ng/mL)","Urinary perchlorate (ng/mL)",," Both males and females 6 YEARS - 150 YEARS",,,obo:UO_0000275,,,,,,,,
+URDUP8LC,"Urinary perchlorate comment code","Urinary Perchlorate comment code",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
+URXNO3,"Urinary nitrate (ng/mL)","Urinary nitrate (ng/mL)",," Both males and females 6 YEARS - 150 YEARS",,,obo:UO_0000275,,,,,,,,
+URDNO3LC,"Urinary nitrate comment code","Urinary nitrate comment code",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
+URXSCN,"Urinary thiocyanate (ng/mL)","Urinary thiocyanate (ng/mL)",," Both males and females 6 YEARS - 150 YEARS",,,obo:UO_0000275,,,,,,,,
+URDSCNLC,"Urinary thiocyanate comment code","Urinary thiocyanate comment code",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
+URXUCR,"Urinary creatinine (mg/dL)","Urinary creatinine (mg/dL)",," Both males and females 6 YEARS - 150 YEARS",,,chear:milligram_per_deciliter,,,,,,,,

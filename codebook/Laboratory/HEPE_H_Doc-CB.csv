@@ -1,0 +1,7 @@
+Column,Variable,Label
+LBDHEG,1,"Positive"
+LBDHEG,2,"Negative"
+LBDHEG,.,"Missing"
+LBDHEM,1,"Positive"
+LBDHEM,2,"Negative"
+LBDHEM,.,"Missing"

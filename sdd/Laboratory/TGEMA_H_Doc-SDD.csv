@@ -1,0 +1,4 @@
+Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
+SEQN,"Respondent sequence number","Respondent sequence number.",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
+LBXTTG  ,"Tissue transglutaminase(IgA-TTG)","Tissue transglutaminase(IgA-TTG)",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
+LBXEMA  ,"Endomyseal antibody (IgA EMA)","Endomyseal antibody (IgA EMA)",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,

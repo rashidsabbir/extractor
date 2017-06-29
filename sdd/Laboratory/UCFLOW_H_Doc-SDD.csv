@@ -1,0 +1,8 @@
+Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
+SEQN,"Respondent sequence number","Respondent sequence number.",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
+URXVOL1,"The volume of urine collection #1","The volume of urine collection #1",," Both males and females 6 YEARS - 150 YEARS",sio:Quantity,,uberon:0001088,,,,,,,,
+URDFLOW1,"Urine #1 Flow Rate ","Urine #1 Flow Rate ",," Both males and females 6 YEARS - 150 YEARS",sio:Quantity,,uberon:0001088,,,,,,,,
+URXVOL2,"The volume of urine collection #2 ","The volume of urine collection #2 ",," Both males and females 6 YEARS - 150 YEARS",sio:Quantity,,uberon:0001088,,,,,,,,
+URDFLOW2,"Urine #2 Flow Rate","Urine #2 Flow Rate",," Both males and females 6 YEARS - 150 YEARS",sio:Quantity,,uberon:0001088,,,,,,,,
+URXVOL3,"The volume of urine collection #3","The volume of urine collection #3",," Both males and females 6 YEARS - 150 YEARS",sio:Quantity,,uberon:0001088,,,,,,,,
+URDFLOW3,"Urine #3 Flow Rate","Urine #3 Flow Rate",," Both males and females 6 YEARS - 150 YEARS",sio:Quantity,,uberon:0001088,,,,,,,,

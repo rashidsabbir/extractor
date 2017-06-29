@@ -1,0 +1,12 @@
+Column,Variable,Label
+DXXPRVFX,1,"Yes"
+DXXPRVFX,2,"No"
+DXXPRVFX,.,"Missing"
+DXXFRAX1,0 to 53.08,"Range of Values"
+DXXFRAX1,.,"Missing"
+DXXFRAX2,1.32 to 64.78,"Range of Values"
+DXXFRAX2,.,"Missing"
+DXXFRAX3,0 to 29.03,"Range of Values"
+DXXFRAX3,.,"Missing"
+DXXFRAX4,0.67 to 39.82,"Range of Values"
+DXXFRAX4,.,"Missing"

@@ -1,0 +1,7 @@
+Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
+SEQN,"Respondent sequence number","Respondent sequence number.",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
+URXUMA  ,"Albumin, urine (ug/mL)","Albumin, urine (ug/mL)",," Both males and females 6 YEARS - 150 YEARS",,,obo:UO_0000274,,,,,,,,
+URXUMS  ,"Albumin, urine (mg/L)","Albumin, urine (mg/L)",," Both males and females 6 YEARS - 150 YEARS",,,obo:UO_0000273,,,,,,,,
+URXUCR  ,"Creatinine, urine (mg/dL)","Creatinine, urine (mg/dL)",," Both males and females 6 YEARS - 150 YEARS",,,chear:milligram_per_deciliter,,,,,,,,
+URXCRS  ,"Creatinine, urine (umol/L)","Creatinine, urine (umol/L)",," Both males and females 6 YEARS - 150 YEARS",,,chear:micromole_per_liter,,,,,,,,
+URDACT,"Albumin creatinine ratio (mg/g)","Albumin creatinine ratio (mg/g)",," Both males and females 6 YEARS - 150 YEARS",sio:Ratio,,chear:milligram_per_gram,,,,,,,,

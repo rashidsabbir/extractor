@@ -1,0 +1,10 @@
+Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
+DSDSUPID,"SUPPLEMENT ID NUMBER","Supplement ID number",,,,,,,,,,,,,
+DSDSUPP,"SUPPLEMENT NAME","Supplement name",,,,,,,,,,,,,
+DSDINGID,"INGREDIENT ID NUMBER","Ingredient ID",,,,,,,,,,,,,
+DSDINGR,"INGREDIENT NAME","Ingredient Name",,,,,,,,,,,,,
+DSDOPER,"INGREDIENT OPERATOR","Ingredient operator",,,,,,,,,,,,,
+DSDQTY,"INGREDIENT QUANTITY","Ingredient quantity",,,,,,,,,,,,,
+DSDUNIT,"INGREDIENT UNIT","Ingredient unit",,,,,,,,,,,,,
+DSDCAT,"INGREDIENT CATEGORY","Ingredient category",,,,,,,,,,,,,
+DSDBLFLG,"BLEND FLAG","Blend flag",,,,,,,,,,,,,

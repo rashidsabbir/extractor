@@ -1,0 +1,6 @@
+Column,Variable,Label
+SSTCAMFI,-9 to 20830.5,"Range of Values"
+SSTCAMFI,.,"Missing"
+SSTCAR,1,"Positive"
+SSTCAR,2,"Negative"
+SSTCAR,.,"Missing"

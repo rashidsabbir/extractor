@@ -1,0 +1,5 @@
+Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
+SEQN,"Respondent sequence number","Respondent sequence number",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
+LBXHBC  ,"Hepatitis B core antibody","Hepatitis B core antibody",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
+LBDHBG  ,"Hepatitis B surface antigen","Hepatitis B surface antigen",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
+LBDHD   ,"Hepatitis D (anti-HDV)","Hepatitis D (anti-HDV)",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,

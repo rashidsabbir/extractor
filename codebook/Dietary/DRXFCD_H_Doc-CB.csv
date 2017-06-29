@@ -1,0 +1,7 @@
+Column,Variable,Label
+DRXFDCD,11000000 to 95342000,"Range of Values"
+DRXFDCD,.,"Missing"
+DRXFCSD,Short Food Code Description,"Value was recorded"
+DRXFCSD,< blank >,"Missing"
+DRXFCLD,Long Food Code Description,"Value was recorded"
+DRXFCLD,< blank >,"Missing"
