@@ -1,6 +1,0 @@
-Column,Variable,Label
-URXPREG,1,"Positive"
-URXPREG,2,"Negative"
-URXPREG,3,"Not done"
-URXPREG,4,"Invalid"
-URXPREG,.,"Missing"

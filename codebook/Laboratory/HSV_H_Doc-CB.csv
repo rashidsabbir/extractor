@@ -1,9 +1,0 @@
-Column,Variable,Label
-LBXHE1,1,"Positive"
-LBXHE1,2,"Negative"
-LBXHE1,3,"Indeterminate"
-LBXHE1,.,"Missing"
-LBXHE2,1,"Positive"
-LBXHE2,2,"Negative"
-LBXHE2,3,"Indeterminate"
-LBXHE2,.,"Missing"

@@ -1,4 +1,0 @@
-Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
-SEQN,"Respondent sequence number","Respondent sequence number",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
-LBXTC   ,"Total Cholesterol( mg/dL)","Total Cholesterol( mg/dL)",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
-LBDTCSI,"Total Cholesterol( mmol/L)","Total Cholesterol( mmol/L)",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
