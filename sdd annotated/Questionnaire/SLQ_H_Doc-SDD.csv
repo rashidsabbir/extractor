@@ -1,5 +1,0 @@
-Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
-SEQN,"Respondent sequence number","Respondent sequence number.",," Both males and females 16 YEARS - 150 YEARS",,,,,,,,,,,
-SLD010H,"How much sleep do you get (hours)?","The next set of questions is about your sleeping habits.  How much sleep {do you/does SP} usually get at night on weekdays or workdays?","INTERVIEWER INSTRUCTION:  ENTER HOURS."," Both males and females 16 YEARS - 150 YEARS",,,obo:UO_0000032,,,,,,,,
-SLQ050,"Ever told doctor had trouble sleeping?","{Have you/Has SP} ever told a doctor or other health professional that {you have/s/he has} trouble sleeping?",," Both males and females 16 YEARS - 150 YEARS",,,,,,,,,,,
-SLQ060,"Ever told by doctor have sleep disorder?","{Have you/Has SP} ever been told by a doctor or other health professional that {you have/s/he has} a sleep disorder?",," Both males and females 16 YEARS - 150 YEARS",,,,,,,,,,,

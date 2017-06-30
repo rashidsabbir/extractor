@@ -1,7 +1,0 @@
-Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
-SEQN,"Respondent sequence number","Respondent sequence number.",," Both males and females 12 YEARS - 150 YEARS",,,,,,,,,,,
-WTSAF2YR,"Fasting Subsample MEC Weight","Fasting Subsample MEC Weight",," Both males and females 12 YEARS - 150 YEARS",chear:Weight,,chebi:27007,,,,,,,,
-LBXIN   ,"Insulin (uU/mL)","Insulin (uU/mL)",," Both males and females 12 YEARS - 150 YEARS",,,,,,,,,,,
-LBDINSI,"Insulin (pmol/L)","Insulin (pmol/L)",," Both males and females 12 YEARS - 150 YEARS",,,,,,,,,,,
-PHAFSTHR,"Total length of 'food fast', hours","Total length of 'food fast', hours",," Both males and females 12 YEARS - 150 YEARS",,,obo:UO_0000032,,,,,,,,
-PHAFSTMN,"Total length of 'food fast', minutes","Total length of 'food fast', minutes",," Both males and females 12 YEARS - 150 YEARS",,,obo:UO_0000031,,,,,,,,

@@ -1,5 +1,0 @@
-Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
-SEQN,"Respondent sequence number","Respondent sequence number.",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
-WTSA2YR,"Subsample A Weights","Subsample A Weights",," Both males and females 6 YEARS - 150 YEARS",chear:Weight,,,,,,,,,,
-URXUAS,"Urinary arsenic, total (ug/L)","Urinary arsenic, total (ug/L)",," Both males and females 6 YEARS - 150 YEARS",,,obo:UO_0000301,,,,,,,,
-URXUCR,"Urinary creatinine ","Urinary creatinine ",," Both males and females 6 YEARS - 150 YEARS",,,chebi:27007,,,,,,,,

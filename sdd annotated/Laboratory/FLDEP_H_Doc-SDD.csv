@@ -1,3 +1,0 @@
-Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
-SEQN,"Respondent sequence number","Respondent sequence number.",," Both males and females 6 YEARS - 19 YEARS",,,,,,,,,,,
-LBDPFL ,"Fluoride, plasma (umol/L) average 2 ","Fluoride, plasma (umol/L) average 2 values",," Both males and females 6 YEARS - 19 YEARS",sio:Age,,chear:micromole_per_liter,,,,,,,,

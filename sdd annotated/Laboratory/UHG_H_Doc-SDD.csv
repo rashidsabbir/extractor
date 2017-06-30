@@ -1,6 +1,0 @@
-Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition
-SEQN,"Respondent sequence number","Respondent sequence number",," Both males and females 6 YEARS - 150 YEARS",,,,,,,,,,,
-URXUHG  ,"Mercury, urine (ug/L)","Mercury, urine (ug/L)",," Both males and females 6 YEARS - 150 YEARS",,,obo:UO_0000301,,,,,,,,
-URDUHGLC,"Mercury, urine comment code","Mercury, urine comment code",," Both males and females 6 YEARS - 150 YEARS",,,uberon:0001088,,,,,,,,
-URXUCR,"Creatinine, urine (mg/dL) ","Creatinine, urine (mg/dL) ",," Both males and females 6 YEARS - 150 YEARS",,,chear:milligram_per_deciliter,,,,,,,,
-WTSA2YR,"Subsample A weights","Subsample A weights",," Both males and females 6 YEARS - 150 YEARS",chear:Weight,,,,,,,,,,
