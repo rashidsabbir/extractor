@@ -10,8 +10,8 @@ import urllib2
 import inflect
 import operator
 
-codebook_dn = "codebook_t1"
-sdd_dn = "sdd_t1"
+codebook_dn = "codebook_t2"
+sdd_dn = "sdd_t2"
 
 if not os.path.exists(codebook_dn):
     os.makedirs(codebook_dn)
@@ -154,7 +154,7 @@ def unitConstructor(str, unit_code_list, unit_label_list):
     iter = 0
     stored = "none"
     for word in words:
-        if word in unit_code_list or word in unit_label_list or word in ["per", "/", ".", "*", "times", "squared", "cubed", "square", "cubic", "-"]:
+        if word in unit_code_list or word in unit_label_list or word in ["per", "/", ".", "*","^", "times", "squared", "cubed", "square", "cubic", "-"]:
             if word == "per":
                 constructs[iter] += "/"
             if word == "*" or word == "times":
@@ -163,7 +163,7 @@ def unitConstructor(str, unit_code_list, unit_label_list):
                 constructs[iter] += "2"
             if(word == "cubed"):
                 constructs[iter] += "3"
-            if not word in ["per", "*", "times", "squared", "cubed", "square", "cubic"]:
+            if not word in ["per", "*", "^","times", "squared", "cubed", "square", "cubic"]:
                 if(word in unit_label_list):
                     index = unit_label_list.index(word)
                     constructs[iter] += unit_code_list[index]
