@@ -10,8 +10,8 @@ import urllib2
 import inflect
 import operator
 
-codebook_dn = "codebook_t2"
-sdd_dn = "sdd_t2"
+codebook_dn = "codebook_t1"
+sdd_dn = "sdd_t1"
 
 if not os.path.exists(codebook_dn):
     os.makedirs(codebook_dn)
@@ -123,6 +123,10 @@ def unitMapper(labelVal, commentVal, noteVal, unit_label_list, unit_code_list):
             else:
                 evidence[unit_uri] = 3
     try:
+        
+        if evidence.has_key("obo:UO_0000010"): #make sure second is not 2nd
+            if("seconds" not in (labelVal+" "+commentVal+" "+noteVal).lower() ):
+                evidence.pop("obo:UO_0000010")
         best_match = max(evidence.iteritems(), key=operator.itemgetter(1))[0]
         #print unit_code_list[best_match] + " " + unit_label_list[best_match]
         bm_index = unit_uri_list.index(best_match)
@@ -178,6 +182,12 @@ def unitConstructor(str, unit_code_list, unit_label_list):
                 constructs[iter] += stored
                 stored = "none"
             if count >= 2:
+                if(".." in constructs[iter]):
+                    if("..." in constructs[iter]):
+                        constructs[iter] = constructs[iter].replace("...", "")
+                    else:
+                        constructs[iter] = constructs[iter].replace("..", word)
+                        continue
                 count = 0
                 iter += 1
                 constructs.append("")
@@ -313,7 +323,7 @@ for item in list_items :
                         pass
                         #attributeOfVal = ""
                     try :                                
-                        if (("gram" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) or ("(g)" in (labelVal.lower() or commentVal.lower() or noteVal.lower()))) :
+                        '''if (("gram" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) or ("(g)" in (labelVal.lower() or commentVal.lower() or noteVal.lower()))) :
                             unitVal = "obo:UO_0000021"
                         if (("milligram" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) or ("(mg)" in (labelVal.lower() or commentVal.lower() or noteVal.lower()))) :
                             unitVal = "obo:UO_0000022"
@@ -338,7 +348,7 @@ for item in list_items :
                         if("minute" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
                             unitVal = "obo:UO_0000031"
                         if("hour" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            unitVal = "obo:UO_0000032"
+                            unitVal = "obo:UO_0000032"'''
                         if("day" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
                             unitVal = "obo:UO_0000033"
                         if("week" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
