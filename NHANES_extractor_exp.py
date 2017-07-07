@@ -10,8 +10,8 @@ import urllib2
 import inflect
 import operator
 
-codebook_dn = "codebook_t1"
-sdd_dn = "sdd_t1"
+codebook_dn = "codebook_t2"
+sdd_dn = "sdd_t2"
 
 if not os.path.exists(codebook_dn):
     os.makedirs(codebook_dn)
@@ -31,7 +31,9 @@ for code_row in code_mappings_reader :
     unit_code_list.append(code_row[0])
     unit_uri_list.append(code_row[1])
     unit_label_list.append(code_row[2])
-    
+del unit_code_list[0]
+del unit_uri_list[0] 
+del unit_label_list[0]   
 #r2013 = urllib.urlopen('https://wwwn.cdc.gov/Nchs/Nhanes/continousnhanes/default.aspx?BeginYear=2013')
 begin_year = 2013
 r = requests.get("https://wwwn.cdc.gov/nchs/nhanes/continuousnhanes/default.aspx?BeginYear=" + begin_year.__str__())
@@ -45,7 +47,7 @@ tokenDict = {}
 def tokens(str):
     if(tokenDict.has_key(str)):
         return tokenDict.get(str)
-    toks = re.findall(r"[\w]+|[.,!?;^()'/%]", str)
+    toks = re.findall(r"[\w]+|[.,!?;^()'/%*]", str)
     tokenDict[str] = toks
     return toks
 stemmed = {}
@@ -111,6 +113,15 @@ def unitMapper(labelVal, commentVal, noteVal, unit_label_list, unit_code_list):
                 evidence[unit_uri] += 2
             if(contains(["("] + stemUnit + [")"], stemVal)):
                 evidence[unit_uri] += 3
+    constructs = unitConstructor(labelVal+" "+commentVal+" "+noteVal, unit_code_list, unit_label_list)
+    for construct in constructs:
+        if(construct in unit_code_list):
+            unit_index = unit_code_list.index(construct)
+            unit_uri = unit_uri_list[unit_index]
+            if(evidence.has_key(unit_uri)):
+                evidence[unit_uri] += 3
+            else:
+                evidence[unit_uri] = 3
     try:
         best_match = max(evidence.iteritems(), key=operator.itemgetter(1))[0]
         #print unit_code_list[best_match] + " " + unit_label_list[best_match]
@@ -122,6 +133,59 @@ def unitMapper(labelVal, commentVal, noteVal, unit_label_list, unit_code_list):
         return best_match
     except:
         return (-1)
+    
+#constructs composite unit codes from strings for direct identification or to give hints   
+def unitConstructor(str, unit_code_list, unit_label_list):
+    toks = tokens(str)
+    words = []
+    for tok in toks:
+        single = inf.singular_noun(tok)
+        if(single != False):
+            words.append(single)
+        else:
+            words.append(tok)
+    constructs = []
+    constructs.append("")
+    count = 0
+    iter = 0
+    stored = "none"
+    for word in words:
+        if word in unit_code_list or word in unit_label_list or word in ["per", "/", ".", "*", "times", "squared", "cubed", "square", "cubic", "-"]:
+            if word == "per":
+                constructs[iter] += "/"
+            if word == "*" or word == "times":
+                constructs[iter] += "."
+            if(word == "squared"):
+                constructs[iter] += "2"
+            if(word == "cubed"):
+                constructs[iter] += "3"
+            if not word in ["per", "*", "times", "squared", "cubed", "square", "cubic"]:
+                if(word in unit_label_list):
+                    index = unit_label_list.index(word)
+                    constructs[iter] += unit_code_list[index]
+                else:
+                    constructs[iter] += word
+            if(stored != "none"):
+                constructs[iter] += stored
+                stored = "none"
+            if(word == "square"):
+                stored = "2"
+            if(word == "cubic"):
+                stored = "3"
+            count += 1
+        else:
+            if(stored != "none"):
+                constructs[iter] += stored
+                stored = "none"
+            if count >= 2:
+                count = 0
+                iter += 1
+                constructs.append("")
+            else:
+                count = 0    
+                constructs[iter] = ""
+                
+    return constructs   
 
 for item in list_items :
     link = "https://wwwn.cdc.gov" + item.findNext("a").get("href")
