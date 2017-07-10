@@ -5,6 +5,9 @@ import os
 import re
 import csv
 import urllib2
+import time
+
+start_time=time.time()
 
 if not os.path.exists("codebook"):
     os.makedirs("codebook")
@@ -266,6 +269,7 @@ for item in list_items :
             except:
                 print "\t\tNo codebook found for document"
     print ""
+print("The extractor took %s seconds to run" % (time.time() - start_time))
 
 # demographics_link = "https://wwwn.cdc.gov" + soup.find("a",text="Demographics").get("href")
 # print demographics_link

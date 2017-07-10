@@ -10,13 +10,12 @@ import urllib2
 import inflect
 import operator
 import traceback
+import time
 
-#import wrap_classes
-#sdd_wrap = wrap_classes.sdd_wrap
+start_time = time.time()
 
-
-codebook_dn = "codebook_t2"
-sdd_dn = "sdd_t2"
+codebook_dn = "codebook_t1"
+sdd_dn = "sdd_t1"
 
 if not os.path.exists(codebook_dn):
     os.makedirs(codebook_dn)
@@ -516,107 +515,4 @@ for item in list_items :
             except:
                 print "\t\tNo codebook found for document"
     print ""
-
-# demographics_link = "https://wwwn.cdc.gov" + soup.find("a",text="Demographics").get("href")
-# print demographics_link
-# demographics_soup = BeautifulSoup(requests.get(demographics_link).text, "lxml")
-# #print demographics_soup.prettify()[0:1000]
-# demographics_variable_link = "https://wwwn.cdc.gov/nchs/nhanes/search/" + demographics_soup.find("span",id="lblVarlist").findNext("a").get("href")
-# print demographics_variable_link
-# demographics_variable_soup = BeautifulSoup(requests.get(demographics_variable_link).text, "lxml")
-# #print demographics_variable_soup.prettify()[0:1000]
-# demographics_doc_rows = demographics_soup.find("table",id="GridView1").find("tbody").findAll("tr")
-# for row in demographics_doc_rows:
-#     if not (row.find("a").get("href") is "#"):
-#         demographics_doc_link = "https://wwwn.cdc.gov" + row.find("a").get("href")
-#         print demographics_doc_link
-#         demographics_doc_soup = BeautifulSoup(requests.get(demographics_doc_link).text, "lxml")
-#         entries=demographics_doc_soup.find("div", id="Codebook").findAll("div")
-#         for entry in entries :
-#             #print "Column: " + entry.find("dl").find("dt",text="Variable Name: ").findNext("dd").contents[0]
-#             #print "label: " + entry.find("dl").find("dt",text="SAS Label: ").findNext("dd").contents[0]
-#             tables = entry.findAll("table")
-#             for table in tables :
-#                 table_rows = table.find("tbody").findAll("tr")
-#                 for table_row in table_rows :
-#                     print entry.find("dl").find("dt",text="Variable Name: ").findNext("dd").contents[0] + "," + table_row.find("td",scope="row").contents[0] + "," + table_row.find("td",scope="row").findNext("td").contents[0]
-
-
-# dietary_link = "https://wwwn.cdc.gov" + soup.find("a",text="Dietary").get("href")
-# print dietary_link
-# dietary_soup = BeautifulSoup(requests.get(dietary_link).text, "lxml")
-# #print dietary_soup.prettify()[0:1000]
-# dietary_variable_link = "https://wwwn.cdc.gov/nchs/nhanes/search/" + dietary_soup.find("span",id="lblVarlist").findNext("a").get("href")
-# print dietary_variable_link
-# dietary_variable_soup = BeautifulSoup(requests.get(dietary_variable_link).text, "lxml")
-# #print dietary_variable_soup.prettify()[0:1000]
-# dietary_doc_rows = dietary_soup.find("table",id="GridView1").find("tbody").findAll("tr")
-# for row in dietary_doc_rows:
-#     if not (row.find("a").get("href") is "#"):
-#         dietary_doc_link = "https://wwwn.cdc.gov" + row.find("a").get("href")
-#         print dietary_doc_link
-#         dietary_doc_soup = BeautifulSoup(requests.get(dietary_doc_link).text, "lxml")
-
-
-# examination_link = "https://wwwn.cdc.gov" + soup.find("a",text="Examination").get("href")
-# print examination_link
-# examination_soup = BeautifulSoup(requests.get(examination_link).text, "lxml")
-# #print examination_soup.prettify()[0:1000]
-# examination_variable_link = "https://wwwn.cdc.gov/nchs/nhanes/search/" + examination_soup.find("span",id="lblVarlist").findNext("a").get("href")
-# print examination_variable_link
-# examination_variable_soup = BeautifulSoup(requests.get(examination_variable_link).text, "lxml")
-# #print examination_variable_soup.prettify()[0:1000]
-# examination_doc_rows = examination_soup.find("table",id="GridView1").find("tbody").findAll("tr")
-# for row in examination_doc_rows:
-#     if not (row.find("a").get("href") is "#"):
-#         examination_doc_link = "https://wwwn.cdc.gov" + row.find("a").get("href")
-#         print examination_doc_link
-#         examination_doc_soup = BeautifulSoup(requests.get(examination_doc_link).text, "lxml")
- 
- 
-# laboratory_link = "https://wwwn.cdc.gov" + soup.find("a",text="Laboratory").get("href")
-# print laboratory_link
-# laboratory_soup = BeautifulSoup(requests.get(laboratory_link).text, "lxml")
-# #print laboratory_soup.prettify()[0:1000]
-# laboratory_variable_link = "https://wwwn.cdc.gov/nchs/nhanes/search/" + laboratory_soup.find("span",id="lblVarlist").findNext("a").get("href")
-# print laboratory_variable_link
-# laboratory_variable_soup = BeautifulSoup(requests.get(laboratory_variable_link).text, "lxml")
-# #print laboratory_variable_soup.prettify()[0:1000]
-# laboratory_doc_rows = laboratory_soup.find("table",id="GridView1").find("tbody").findAll("tr")
-# for row in laboratory_doc_rows:
-#     if not (row.find("a").get("href") is "#"):
-#         laboratory_doc_link = "https://wwwn.cdc.gov" + row.find("a").get("href")
-#         print laboratory_doc_link
-#         laboratory_doc_soup = BeautifulSoup(requests.get(laboratory_doc_link).text, "lxml")
-
-
-# questionnaire_link = "https://wwwn.cdc.gov" + soup.find("a",text="Questionnaire").get("href")
-# print questionnaire_link
-# questionnaire_soup = BeautifulSoup(requests.get(questionnaire_link).text, "lxml")
-# #print questionnaire_soup.prettify()[0:1000]
-# questionnaire_variable_link = "https://wwwn.cdc.gov/nchs/nhanes/search/" + questionnaire_soup.find("span",id="lblVarlist").findNext("a").get("href")
-# print questionnaire_variable_link
-# questionnaire_variable_soup = BeautifulSoup(requests.get(questionnaire_variable_link).text, "lxml")
-# #print questionnaire_variable_soup.prettify()[0:1000]
-# questionnaire_doc_rows = questionnaire_soup.find("table",id="GridView1").find("tbody").findAll("tr")
-# for row in questionnaire_doc_rows:
-#     if not (row.find("a").get("href") is "#"):
-#         questionnaire_doc_link = "https://wwwn.cdc.gov" + row.find("a").get("href")
-#         print questionnaire_doc_link
-#         questionnaire_doc_soup = BeautifulSoup(requests.get(questionnaire_doc_link).text, "lxml")
-
-
-# limited_access_link= "https://wwwn.cdc.gov" + soup.find("a",text="Limited Access").get("href")
-# print limited_access_link
-# limited_access_soup = BeautifulSoup(requests.get(limited_access_link).text, "lxml")
-# #print limited_access_soup.prettify()[0:1000]
-# limited_access_variable_link = "https://wwwn.cdc.gov/nchs/nhanes/search/" + limited_access_soup.find("span",id="lblVarlist").findNext("a").get("href")
-# print limited_access_variable_link
-# limited_access_variable_soup = BeautifulSoup(requests.get(limited_access_variable_link).text, "lxml")
-# #print limited_access_variable_soup.prettify()[0:1000]
-# limited_access_doc_rows = limited_access_soup.find("table",id="GridView1").find("tbody").findAll("tr")
-# for row in limited_access_doc_rows:
-#     if not (row.find("a").get("href") is "#"):
-#         limited_access_doc_link = "https://wwwn.cdc.gov" + row.find("a").get("href")
-#         print limited_access_doc_link
-#         limited_access_doc_soup = BeautifulSoup(requests.get(limited_access_doc_link).text, "lxml")
+print("The extractor took %s seconds to run" % (time.time() - start_time))
