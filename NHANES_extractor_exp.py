@@ -11,11 +11,14 @@ import inflect
 import operator
 import traceback
 import time
+import threading
+import multiprocessing
+from Tix import ROW
 
 start_time = time.time()
 
-codebook_dn = "codebook_t1"
-sdd_dn = "sdd_t1"
+codebook_dn = "codebook_t4"
+sdd_dn = "sdd_t4"
 
 if not os.path.exists(codebook_dn):
     os.makedirs(codebook_dn)
@@ -441,7 +444,7 @@ class entry_wrap:
 class sdd_wrap:
     '''this class wraps a representation of an SDD with helper functions for auto-extraction'''
     def __init__(self, directory, entries):
-        print "trying " + directory + "\n"
+        print "\n\ttrying " + directory
         self.dir_name = directory
         self.entries = entries
         self.lines = []
@@ -457,6 +460,80 @@ class sdd_wrap:
             ent.evaluate()
             self.lines.append(ent.toLine())
             ln = ln + 1   
+'''def processSDD(doc_link, row, sdd_dn, subfolder_name, codebook_dn):
+    doc_soup = BeautifulSoup(requests.get(doc_link).text, "lxml")
+    try:
+        sdd_fn="_".join(row.find("a").contents[0].split())+ "-SDD.csv"
+        print "\t\tOpening "+ sdd_dn + "/" + subfolder_name + "/" + sdd_fn
+        sdd = open(sdd_dn + "/" + subfolder_name + "/" + sdd_fn,"w")
+        #sdd.write("Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition\n")
+        codebook_fn="_".join(row.find("a").contents[0].split())+ "-CB.csv"
+        print "\t\tOpening " + codebook_dn + "/" + subfolder_name + "/" + codebook_fn          
+        codebook = open(codebook_dn + "/" + subfolder_name + "/" + codebook_fn,"w")
+        codebook.write("Column,Variable,Label\n")
+        entries=doc_soup.find("div", id="Codebook").findAll("div")
+        try:
+            sddtest = sdd_wrap(sdd_dn + "/" + subfolder_name + "/" + sdd_fn, entries)
+            sddtest.evaluate()
+            print "\t\tWriting to "+ sdd_dn + "/" + subfolder_name + "/" + sdd_fn
+            for line in sddtest.lines:
+                sdd.write(line)
+        except Exception, err:
+            traceback.print_exc()
+        print "\t\tWriting to " + codebook_dn + "/" + subfolder_name + "/" + codebook_fn    
+        for entry in entries :
+            tables = entry.findAll("table")
+            # Insert Codebook Entries
+            for table in tables :
+                table_rows = table.find("tbody").findAll("tr")
+                for table_row in table_rows :
+                    codebook.write(entry.find("dl").find("dt",text="Variable Name: ").findNext("dd").contents[0].replace(" ","") + "," + table_row.find("td",scope="row").contents[0].encode('ascii','ignore').decode('utf-8') + ',"' + table_row.find("td",scope="row").findNext("td").contents[0].encode('ascii','ignore').decode('utf-8').replace("\"","'") + '"\n')
+        sdd.close()
+        codebook.close()
+    except:
+        print "\t\tProcessing error while trying " + doc_link
+    print "\tprocessed: " + doc_link + "\n"'''
+
+exitFlag = 0
+
+def processSDD(processID, doc_link, row, sdd_dn, subfolder_name, codebook_dn):
+    print "\tStarting PROCESS_" + processID + " on " + doc_link
+    doc_soup = BeautifulSoup(requests.get(doc_link).text, "lxml")
+    try:
+        sdd_fn="_".join(row.find("a").contents[0].split())+ "-SDD.csv"
+        print "\t\tOpening "+ sdd_dn + "/" + subfolder_name + "/" + sdd_fn
+        sdd = open(sdd_dn + "/" + subfolder_name + "/" + sdd_fn,"w")
+        #sdd.write("Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition\n")
+        codebook_fn="_".join(row.find("a").contents[0].split())+ "-CB.csv"
+        print "\t\tOpening " + codebook_dn + "/" + subfolder_name + "/" + codebook_fn          
+        codebook = open(codebook_dn + "/" + subfolder_name + "/" + codebook_fn,"w")
+        codebook.write("Column,Variable,Label\n")
+        entries=doc_soup.find("div", id="Codebook").findAll("div")
+        try:
+            sddtest = sdd_wrap(sdd_dn + "/" + subfolder_name + "/" + sdd_fn, entries)
+            sddtest.evaluate()
+            print "\t\tWriting to "+ sdd_dn + "/" + subfolder_name + "/" + sdd_fn
+            for line in sddtest.lines:
+                sdd.write(line)
+        except Exception, err:
+            traceback.print_exc()
+        print "\t\tWriting to " + codebook_dn + "/" + subfolder_name + "/" + codebook_fn    
+        for entry in entries :
+            tables = entry.findAll("table")
+            # Insert Codebook Entries
+            for table in tables :
+                table_rows = table.find("tbody").findAll("tr")
+                for table_row in table_rows :
+                    codebook.write(entry.find("dl").find("dt",text="Variable Name: ").findNext("dd").contents[0].replace(" ","") + "," + table_row.find("td",scope="row").contents[0].encode('ascii','ignore').decode('utf-8') + ',"' + table_row.find("td",scope="row").findNext("td").contents[0].encode('ascii','ignore').decode('utf-8').replace("\"","'") + '"\n')
+        sdd.close()
+        codebook.close()
+    except:
+        print "\t\tProcessing error while trying " + doc_link
+        print "\tExiting PROCESS_" + processID + " WITH ERROR!"
+    print "\tExiting PROCESS_" + processID 
+           
+processes = []
+processc = 0
 
 for item in list_items :
     link = "https://wwwn.cdc.gov" + item.findNext("a").get("href")
@@ -472,47 +549,29 @@ for item in list_items :
         os.makedirs(sdd_dn + "/" + subfolder_name)
     doc_rows = portal_soup.find("table",id="GridView1").find("tbody").findAll("tr")
     for row in doc_rows:
-        if not (row.find("a").get("href") is "#"):                            
+        if not (row.find("a").get("href") is "#"):   
+            '''parallelize from here'''                         
             doc_link = "https://wwwn.cdc.gov" + row.find("a").get("href")
             print "\tDocument: " + doc_link
-            doc_soup = BeautifulSoup(requests.get(doc_link).text, "lxml")
-            try:
-                sdd_fn="_".join(row.find("a").contents[0].split())+ "-SDD.csv"
-                print "\t\tWriting to "+ sdd_dn + "/" + subfolder_name + "/" + sdd_fn
-                sdd = open(sdd_dn + "/" + subfolder_name + "/" + sdd_fn,"w")
-                #sdd.write("Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition\n")
-                codebook_fn="_".join(row.find("a").contents[0].split())+ "-CB.csv"
-                print "\t\tWriting to " + codebook_dn + "/" + subfolder_name + "/" + codebook_fn          
-                codebook = open(codebook_dn + "/" + subfolder_name + "/" + codebook_fn,"w")
-                codebook.write("Column,Variable,Label\n")
-                entries=doc_soup.find("div", id="Codebook").findAll("div")
-                try:
-                    sddtest = sdd_wrap(sdd_dn + "/" + subfolder_name + "/" + sdd_fn, entries)
-                    sddtest.evaluate()
-                    for line in sddtest.lines:
-                        sdd.write(line)
-                except Exception, err:
-                    traceback.print_exc()
-                    
-                for entry in entries :
-                    #try:
-                    #    print "\t\t" + entry.find("dl").find("dt",text="Variable Name: ").findNext("dd").contents[0] + " - " + entry.find("dl").find("dt",text="English Text: ").findNext("dd").contents[0]
-                    #except:
-                    #    try:
-                    #        print "\t\t" + entry.find("dl").find("dt",text="Variable Name: ").findNext("dd").contents[0] + " - " + entry.find("dl").find("dt",text="SAS Label: ").findNext("dd").contents[0]
-                    #    except:
-                    #        print "\t\t" + entry.find("dl").find("dt",text="Variable Name: ").findNext("dd").contents[0]
-                    
-                    # Insert Semantic Data Dictionary Entries
-                    tables = entry.findAll("table")
-                    # Insert Codebook Entries
-                    for table in tables :
-                        table_rows = table.find("tbody").findAll("tr")
-                        for table_row in table_rows :
-                            codebook.write(entry.find("dl").find("dt",text="Variable Name: ").findNext("dd").contents[0].replace(" ","") + "," + table_row.find("td",scope="row").contents[0].encode('ascii','ignore').decode('utf-8') + ',"' + table_row.find("td",scope="row").findNext("td").contents[0].encode('ascii','ignore').decode('utf-8').replace("\"","'") + '"\n')
-                sdd.close()
-                codebook.close()
-            except:
-                print "\t\tNo codebook found for document"
+            processes.append(multiprocessing.Process(target=processSDD, args=(str(processc), doc_link, row, sdd_dn, subfolder_name, codebook_dn) ) )
+            processes[processc].start()
+            processc += 1
+            
     print ""
+print "-----------ALL PROCESSES HAVE STARTED----------"
+
+for i in range(0, 20):
+    time.sleep(5)
+    living = 0
+    for x in processes:
+        living += x.is_alive()
+    if(living == 0):
+        break
+    print "PROGRESS: " + "|"*int((1.0 - float(living)/float(processc))*50)
+joinedc = 0
+for p in processes:
+    p.join()
+    joinedc += 1
+
+print "ALL PROCESSES HAVE TERMINATED"
 print("The extractor took %s seconds to run" % (time.time() - start_time))
