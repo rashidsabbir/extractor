@@ -9,6 +9,11 @@ import csv
 import urllib2
 import inflect
 import operator
+import traceback
+
+#import wrap_classes
+#sdd_wrap = wrap_classes.sdd_wrap
+
 
 codebook_dn = "codebook_t2"
 sdd_dn = "sdd_t2"
@@ -55,6 +60,7 @@ stemmed = {}
 inf = inflect.engine()
 exclusions = []
 exclusions.extend(("s", "S", "a", "A", "i", "I", "", "ME"))
+
 def stemAll(str):
     if(stemmed.has_key(str)):
         return stemmed.get(str)
@@ -82,6 +88,7 @@ def contains(small, big):
     return False
 #take an entry string
 #attempt to return a known unit's uri, nothing or a useful filler if it fails
+
 def unitMapper(labelVal, commentVal, noteVal, unit_label_list, unit_code_list):
     # approach: stem+tokenize, gather supporting evidence for each unit_label
     # return unit_uri with max evidence
@@ -138,7 +145,8 @@ def unitMapper(labelVal, commentVal, noteVal, unit_label_list, unit_code_list):
     except:
         return (-1)
     
-#constructs composite unit codes from strings for direct identification or to give hints   
+#constructs composite unit codes from strings for direct identification or to give hints
+
 def unitConstructor(str, unit_code_list, unit_label_list):
     toks = tokens(str)
     words = []
@@ -195,7 +203,261 @@ def unitConstructor(str, unit_code_list, unit_label_list):
                 count = 0    
                 constructs[iter] = ""
                 
-    return constructs   
+    return constructs
+
+class entry_wrap:
+    '''this class wraps a representation of an entry corresponding to a line in an SDD'''
+    def __init__(self, raw, line_number):
+        self.entry = raw
+        self.line_num = line_number
+        #initial values
+        self.columnVal = self.entry.find("dl").find("dt", text="Variable Name: ").findNext("dd").contents[0].replace("\t", "").replace("\n", "").replace("\r", "")
+        self.labelVal = ""
+        self.commentVal = ""
+        self.noteVal = ""
+        self.targetVal = ""
+        self.attributeVal = ""
+        self.attributeOfVal = ""
+        self.unitVal = ""
+        self.timeVal = ""
+        self.entityVal = ""
+        self.roleVal = ""
+        self.relationVal = ""
+        self.inRelationToVal = ""
+        self.wasDerivedFromVal = ""
+        self.wasGeneratedByVal = ""
+        self.hasPositionVal = ""
+        
+    
+    def makeLabel(self):
+        entry = self.entry
+        
+        try :
+            self.labelVal = '"' + entry.find("dl").find("dt", text="SAS Label: ").findNext("dd").contents[0].encode('ascii', 'ignore').decode('utf-8').replace("\"", "'") + '"'
+        except :
+            # Don't update labelVal
+            pass
+            # labelVal = ""
+    def makeComment(self):
+        entry = self.entry
+        
+        try :
+            self.commentVal = '"' + entry.find("dl").find("dt", text="English Text: ").findNext("dd").contents[0].encode('ascii', 'ignore').decode('utf-8').replace("\"", "'").replace("\t", "").replace("\n", "").replace("\r", "") + '"'
+        except :
+            # Don't update commentVal
+            pass
+            # commentVal = ""
+    def makeNote(self):
+        entry = self.entry
+        
+        try :
+            self.noteVal = '"' + entry.find("dl").find("dt", text="English Instructions: ").findNext("dd").contents[0].encode('ascii', 'ignore').decode('utf-8').replace("\"", "'").replace("\t", "").replace("\n", "").replace("\r", "") + '"'
+        except :
+            # Don't update noteVal
+            pass
+            # noteVal = ""
+    def makeTarget(self):
+        entry = self.entry
+        
+        try :
+            self.targetVal = '"' + entry.find("dl").find("dt", text="Target: ").findNext("dd").contents[0].replace("\t", "").replace("\n", "").replace("\r", " ") + '"'
+        except :
+            # Don't update targetVal
+            pass
+            # targetVal = ""
+    def makeAttribute(self):
+        labelVal = self.labelVal
+        commentVal = self.commentVal
+        noteVal = self.noteVal
+        
+        try :
+            # if(("age" in labelVal.lower()) or ("age" in commentVal.lower()) or ("age" in noteVal.lower())) :
+            if("age" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.attributeVal = "sio:Age"
+            if("weight" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.attributeVal = "chear:Weight"
+            if("height" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.attributeVal = "sio:Height"
+            if("race" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.attributeVal = "sio:Race"
+            if("ethnic" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.attributeVal = "sio:Ethnicity"
+            if("circumference" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.attributeVal = "sio:Circumference"
+            if("status" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.attributeVal = "sio:StatusDescriptor"
+            if("education" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.attributeVal = "chear:EducationLevel"
+            if("language" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.attributeVal = "chear:Language"
+            if("income" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.attributeVal = "chear:Income"
+            if("country" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.attributeVal = "sio:Country"
+            if(("#" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) or ("number of" in (labelVal.lower() or commentVal.lower() or noteVal.lower()))) :
+                self.attributeVal = "sio:Quantity"
+            if("ratio" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.attributeVal = "sio:Ratio"
+            if("time" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.attributeVal = "sio:TimeInterval"
+        except :
+            # Don't update attributeVal
+            pass
+            # attributeVal = ""
+    def makeAttributeOf(self):
+        labelVal = self.labelVal
+        commentVal = self.commentVal
+        noteVal = self.noteVal
+        
+        try :
+            if("child" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.attributeOfVal = "??child"
+            if("mother" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.attributeOfVal = "??mother"
+            if("father" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.attributeOfVal = "??father"
+        except :
+            # Don't update attributeOfVal
+            pass
+            # attributeOfVal = ""
+    def makeUnit(self):
+        labelVal = self.labelVal
+        commentVal = self.commentVal
+        noteVal = self.noteVal
+        try :                                
+            if("day" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.unitVal = "obo:UO_0000033"
+            if("week" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.unitVal = "obo:UO_0000034"
+            if("month" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.unitVal = "obo:UO_0000035"
+            if("year" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
+                self.unitVal = "obo:UO_0000036"
+            try:
+                best_match = unitMapper(labelVal, commentVal, noteVal, unit_label_list, unit_code_list)
+                if(best_match > 0):
+                    self.unitVal = best_match
+            except :
+                print "Something went wrong.."
+        except :
+            # Don't update unitVal
+            pass
+            # unitVal = ""
+    def makeTime(self):
+        try :
+            self.timeVal = ""
+        except :
+            # Don't update timeVal
+            pass
+            # timeVal = ""
+    def makeEntity(self):
+        try :
+            self.entityVal = ""
+        except :
+            # Don't update entityVal
+            pass
+            # entityVal = ""
+    def makeRole(self):
+        try :
+            self.roleVal = ""
+        except :
+            # Don't update roleVal
+            pass
+            # roleVal = ""
+    def makeRelation(self):
+        try :
+            self.relationVal = ""
+        except :
+            # Don't update relationVal
+            pass
+            # relationVal = ""
+    def makeInRelationTo(self):
+        try :
+            self.inRelationToVal = ""
+        except :
+            # Don't update inrelationToVal
+            pass
+            # inRelationToVal = ""
+    def makeWasDerivedFrom(self):
+        try :
+            self.wasDerivedFromVal = ""
+        except :
+            # Don't update wasDerivedFromVal
+            pass
+            # wasDerivedFromVal = ""
+    def makeWasGeneratedBy(self):
+        try :
+            self.wasGeneratedByVal = ""
+        except :
+            # Don't update wasGeneratedByVal
+            pass
+            # wasGeneratedByVal = ""
+    def makeHasPosition(self):
+        try :
+            self.hasPositionVal = ""
+        except :
+            # Don't update hasPositionVal
+            pass
+            # hasPositionVal = ""
+    
+    def evaluate(self):
+        #self.makeColumn()
+        self.makeLabel()
+        self.makeComment()
+        self.makeNote()
+        self.makeTarget()
+        self.makeAttribute()
+        self.makeAttributeOf()
+        self.makeUnit()
+        self.makeTime()
+        self.makeEntity()
+        self.makeRole()
+        self.makeRelation()
+        self.makeInRelationTo()
+        self.makeWasDerivedFrom()
+        self.makeWasGeneratedBy()
+        self.makeHasPosition()
+
+    def toLine(self):
+        line = (
+                self.columnVal + "," +
+                self.labelVal + "," +
+                self.commentVal + "," +
+                self.noteVal + "," +
+                self.targetVal + "," +
+                self.attributeVal + "," +
+                self.attributeOfVal + "," +
+                self.unitVal + "," +
+                self.timeVal + "," +
+                self.entityVal + "," +
+                self.roleVal + "," +
+                self.relationVal + "," +
+                self.inRelationToVal + "," +
+                self.wasDerivedFromVal + "," +
+                self.wasGeneratedByVal + "," +
+                self.hasPositionVal + "\n" 
+            )
+        return line
+
+class sdd_wrap:
+    '''this class wraps a representation of an SDD with helper functions for auto-extraction'''
+    def __init__(self, directory, entries):
+        print "trying " + directory + "\n"
+        self.dir_name = directory
+        self.entries = entries
+        self.lines = []
+        self.lines.append("Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition\n")
+        
+        
+        
+    def evaluate(self):
+        ln = 1    
+        for entry in self.entries :
+            # Insert Semantic Data Dictionary Entries        
+            ent = entry_wrap(entry, ln)
+            ent.evaluate()
+            self.lines.append(ent.toLine())
+            ln = ln + 1   
 
 for item in list_items :
     link = "https://wwwn.cdc.gov" + item.findNext("a").get("href")
@@ -219,12 +481,20 @@ for item in list_items :
                 sdd_fn="_".join(row.find("a").contents[0].split())+ "-SDD.csv"
                 print "\t\tWriting to "+ sdd_dn + "/" + subfolder_name + "/" + sdd_fn
                 sdd = open(sdd_dn + "/" + subfolder_name + "/" + sdd_fn,"w")
-                sdd.write("Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition\n")
+                #sdd.write("Column,Label,Comment,Note,Target,Attribute,attributeOf,Unit,Time,Entity,Role,Relation,inRelationTo,wasDerivedFrom,wasGeneratedBy,hasPosition\n")
                 codebook_fn="_".join(row.find("a").contents[0].split())+ "-CB.csv"
                 print "\t\tWriting to " + codebook_dn + "/" + subfolder_name + "/" + codebook_fn          
                 codebook = open(codebook_dn + "/" + subfolder_name + "/" + codebook_fn,"w")
                 codebook.write("Column,Variable,Label\n")
                 entries=doc_soup.find("div", id="Codebook").findAll("div")
+                try:
+                    sddtest = sdd_wrap(sdd_dn + "/" + subfolder_name + "/" + sdd_fn, entries)
+                    sddtest.evaluate()
+                    for line in sddtest.lines:
+                        sdd.write(line)
+                except Exception, err:
+                    traceback.print_exc()
+                    
                 for entry in entries :
                     #try:
                     #    print "\t\t" + entry.find("dl").find("dt",text="Variable Name: ").findNext("dd").contents[0] + " - " + entry.find("dl").find("dt",text="English Text: ").findNext("dd").contents[0]
@@ -235,203 +505,6 @@ for item in list_items :
                     #        print "\t\t" + entry.find("dl").find("dt",text="Variable Name: ").findNext("dd").contents[0]
                     
                     # Insert Semantic Data Dictionary Entries
-                    
-                    columnVal = entry.find("dl").find("dt",text="Variable Name: ").findNext("dd").contents[0].replace("\t","").replace("\n","").replace("\r","")
-                    labelVal = ""
-                    commentVal = ""
-                    noteVal = ""
-                    targetVal = ""
-                    attributeVal = ""
-                    attributeOfVal = ""
-                    unitVal = ""
-                    timeVal = ""
-                    entityVal = ""
-                    roleVal=""
-                    relationVal = ""
-                    inRelationToVal = ""
-                    wasDerivedFromVal = ""
-                    wasGeneratedByVal = ""
-                    hasPositionVal = ""
-                    
-                    try :
-                        labelVal = '"' + entry.find("dl").find("dt",text="SAS Label: ").findNext("dd").contents[0].encode('ascii','ignore').decode('utf-8').replace("\"","'") + '"'
-                    except :
-                        # Don't update labelVal
-                        pass
-                        #labelVal = ""
-                    try :
-                        commentVal = '"' + entry.find("dl").find("dt",text="English Text: ").findNext("dd").contents[0].encode('ascii','ignore').decode('utf-8').replace("\"","'").replace("\t","").replace("\n","").replace("\r","") + '"'
-                    except :
-                        # Don't update commentVal
-                        pass
-                        #commentVal = ""
-                    try :
-                        noteVal = '"' + entry.find("dl").find("dt",text="English Instructions: ").findNext("dd").contents[0].encode('ascii','ignore').decode('utf-8').replace("\"","'").replace("\t","").replace("\n","").replace("\r","") + '"'
-                    except :
-                        # Don't update noteVal
-                        pass
-                        #noteVal = ""
-                    try :
-                        targetVal = '"' + entry.find("dl").find("dt",text="Target: ").findNext("dd").contents[0].replace("\t","").replace("\n","").replace("\r"," ") + '"'
-                    except :
-                        # Don't update targetVal
-                        pass
-                        #targetVal = ""
-                    try :
-                        #if(("age" in labelVal.lower()) or ("age" in commentVal.lower()) or ("age" in noteVal.lower())) :
-                        if("age" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            attributeVal="sio:Age"
-                        if("weight" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            attributeVal="chear:Weight"
-                        if("height" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            attributeVal="sio:Height"
-                        if("race" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            attributeVal="sio:Race"
-                        if("ethnic" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            attributeVal="sio:Ethnicity"
-                        if("circumference" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            attributeVal="sio:Circumference"
-                        if("status" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            attributeVal="sio:StatusDescriptor"
-                        if("education" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            attributeVal="chear:EducationLevel"
-                        if("language" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            attributeVal="chear:Language"
-                        if("income" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            attributeVal="chear:Income"
-                        if("country" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            attributeVal="sio:Country"
-                        if(("#" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) or ("number of" in (labelVal.lower() or commentVal.lower() or noteVal.lower()))) :
-                            attributeVal="sio:Quantity"
-                        if("ratio" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            attributeVal="sio:Ratio"
-                        if("time" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            attributeVal="sio:TimeInterval"
-                    except :
-                        # Don't update attributeVal
-                        pass
-                        #attributeVal = ""
-                    try :
-                        if("child" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            attributeOfVal = "??child"
-                        if("mother" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            attributeOfVal = "??mother"
-                        if("father" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            attributeOfVal = "??father"
-                    except :
-                        # Don't update attributeOfVal
-                        pass
-                        #attributeOfVal = ""
-                    try :                                
-                        '''if (("gram" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) or ("(g)" in (labelVal.lower() or commentVal.lower() or noteVal.lower()))) :
-                            unitVal = "obo:UO_0000021"
-                        if (("milligram" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) or ("(mg)" in (labelVal.lower() or commentVal.lower() or noteVal.lower()))) :
-                            unitVal = "obo:UO_0000022"
-                        if (("microgram" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) or ("(ug)" in (labelVal.lower() or commentVal.lower() or noteVal.lower()))) :
-                            unitVal = "obo:UO_0000023"
-                        if (("meter" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) or ("(m)" in (labelVal.lower() or commentVal.lower() or noteVal.lower()))) :
-                            unitVal = "obo:UO_0000008"
-                        if (("kilogram" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) or ("(kg)" in (labelVal.lower() or commentVal.lower() or noteVal.lower()))) :
-                            unitVal = "obo:UO_0000009"
-                        if(("second" in (labelVal.lower() or commentVal.lower() or noteVal.lower()))or ("(s)" in (labelVal.lower() or commentVal.lower() or noteVal.lower()))) :
-                            unitVal = "obo:UO_0000010"
-                        if (("centimeter" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) or ("(cm)" in (labelVal.lower() or commentVal.lower() or noteVal.lower()))) :
-                            unitVal = "obo:UO_0000015"
-                        if (("millimeter" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) or ("(mm)" in (labelVal.lower() or commentVal.lower() or noteVal.lower()))) :
-                            unitVal = "obo:UO_0000016"
-                        if(("millisecond" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) or ("(ms)" in (labelVal.lower() or commentVal.lower() or noteVal.lower()))) :
-                            unitVal = "obo:UO_0000028"
-                        if(("microsecond" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) or ("(us)" in (labelVal.lower() or commentVal.lower() or noteVal.lower()))) :
-                            unitVal = "obo:UO_0000029"
-                        if(("picosecond" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) or ("(ps)" in (labelVal.lower() or commentVal.lower() or noteVal.lower()))) :
-                            unitVal = "obo:UO_0000030"
-                        if("minute" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            unitVal = "obo:UO_0000031"
-                        if("hour" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            unitVal = "obo:UO_0000032"'''
-                        if("day" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            unitVal = "obo:UO_0000033"
-                        if("week" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            unitVal = "obo:UO_0000034"
-                        if("month" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            unitVal = "obo:UO_0000035"
-                        if("year" in (labelVal.lower() or commentVal.lower() or noteVal.lower())) :
-                            unitVal = "obo:UO_0000036"
-                        #---------------- good place to start improvements ----------------------
-                        try:
-                            best_match = unitMapper(labelVal, commentVal, noteVal, unit_label_list, unit_code_list)
-                            if(best_match > 0):
-                                unitVal = best_match
-                            '''for unit_label in unit_label_list :
-                                stemUnit = stemAll(unit_label.lower())
-                                stemVal = stemAll(labelVal.lower() +" "+ commentVal.lower() +" "+ noteVal.lower())
-                                if contains(stemUnit, stemVal) and len(stemUnit) > 0 :
-                                    unit_index = unit_label_list.index(unit_label)
-                                    unitVal = unit_uri_list[unit_index]
-                                    if(contains(["in"] + stemUnit, stemVal)):
-                                        break;
-                            for unit_code in unit_code_list :
-                                if len(unit_code) < 2 :
-                                    continue
-                                stemVal = stemAll(labelVal +" "+ commentVal +" "+ noteVal)
-                                stemUnit = stemAll(unit_code)
-                                if contains(stemUnit, stemVal) and len(stemUnit) > 0 :
-                                    unit_index = unit_code_list.index(unit_code)
-                                    unitVal = unit_uri_list[unit_index]
-                                    if(contains(["in"] + stemUnit, stemVal)):
-                                        break;
-                                    #print unit_uri_list[unit_index]'''
-                        except :
-                            print "Something went wrong.."
-                    except :
-                        # Don't update unitVal
-                        pass
-                        #unitVal = ""
-                    try :
-                        timeVal = ""
-                    except :
-                        # Don't update timeVal
-                        pass
-                        #timeVal = ""
-                    try :
-                        entityVal = ""
-                    except :
-                        # Don't update entityVal
-                        pass
-                        #entityVal = ""
-                    try :
-                        relationVal = ""
-                    except :
-                        # Don't update relationVal
-                        pass
-                        #relationVal = ""
-                    try :
-                        inRelationToVal = ""
-                    except :
-                        # Don't update inrelationToVal
-                        pass
-                        #inRelationToVal = ""
-                    try :
-                        wasDerivedFromVal = ""
-                    except :
-                        # Don't update wasDerivedFromVal
-                        pass
-                        #wasDerivedFromVal = ""
-                    try :
-                        wasGeneratedByVal = ""
-                    except :
-                        # Don't update wasGeneratedByVal
-                        pass
-                        #wasGeneratedByVal = ""
-                    try :
-                        hasPositionVal = ""
-                    except :
-                        # Don't update hasPositionVal
-                        pass
-                        #hasPositionVal = ""
-
-                    sdd.write(columnVal + "," + labelVal + "," + commentVal + "," + noteVal + "," + targetVal + "," + attributeVal + "," + attributeOfVal + "," + unitVal + "," + timeVal + "," + entityVal + "," + roleVal + "," + relationVal + "," + inRelationToVal + "," + wasDerivedFromVal + "," + wasGeneratedByVal + "," + hasPositionVal + "\n")
-                    
                     tables = entry.findAll("table")
                     # Insert Codebook Entries
                     for table in tables :
