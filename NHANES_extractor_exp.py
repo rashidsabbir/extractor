@@ -17,14 +17,16 @@ from Tix import ROW
 
 start_time = time.time()
 
-codebook_dn = "codebook_t4"
-sdd_dn = "sdd_t4"
+codebook_dn = "codebook"
+sdd_dn = "sdd"
+acq_dn = "acq"
 
 if not os.path.exists(codebook_dn):
     os.makedirs(codebook_dn)
 if not os.path.exists(sdd_dn):
     os.makedirs(sdd_dn)
-
+if not os.path.exists(acq_dn):
+    os.makedirs(acq_dn)
 
 code_mappings_url = 'https://raw.githubusercontent.com/tetherless-world/chear-ontology/master/code_mappings.csv'
 code_mappings_response = urllib2.urlopen(code_mappings_url)
@@ -496,10 +498,16 @@ class sdd_wrap:
 
 exitFlag = 0
 
-def processSDD(processID, doc_link, row, sdd_dn, subfolder_name, codebook_dn):
+def processSDD(processID, doc_link, row, sdd_dn, subfolder_name, codebook_dn, acq_dn):
     print "\tStarting PROCESS_" + processID + " on " + doc_link
     doc_soup = BeautifulSoup(requests.get(doc_link).text, "lxml")
     try:
+	acq_fn="ACQ-NHANES-" + subfolder_name + "-" + begin_year.__str__() + "-" + "_".join(row.find("a").contents[0].split()) + ".csv"
+        print "\t\tOpening "+ acq_dn + "/" + subfolder_name + "/" + acq_fn
+        acq = open(acq_dn + "/" + subfolder_name + "/" + acq_fn,"w")
+	print "\t\tWriting to "+ acq_dn + "/" + subfolder_name + "/" + acq_fn
+	acq.write("name,method,study,data dict,epi/lab,owner email\n")
+	acq.write("NHANES-" + begin_year.__str__() + "-" + subfolder_name + "-" + "_".join(row.find("a").contents[0].split()) + "-ACQ,NULL,NHANES-" + begin_year.__str__() + "-" + subfolder_name + ",SDD-NHANES-" + begin_year.__str__() + "-" + subfolder_name + "-" + "_".join(row.find("a").contents[0].split()) + ",epi,admin@hadatac.org")
         sdd_fn="_".join(row.find("a").contents[0].split())+ "-SDD.csv"
         print "\t\tOpening "+ sdd_dn + "/" + subfolder_name + "/" + sdd_fn
         sdd = open(sdd_dn + "/" + subfolder_name + "/" + sdd_fn,"w")
@@ -524,8 +532,12 @@ def processSDD(processID, doc_link, row, sdd_dn, subfolder_name, codebook_dn):
             for table in tables :
                 table_rows = table.find("tbody").findAll("tr")
                 for table_row in table_rows :
-                    codebook.write(entry.find("dl").find("dt",text="Variable Name: ").findNext("dd").contents[0].replace(" ","") + "," + table_row.find("td",scope="row").contents[0].encode('ascii','ignore').decode('utf-8') + ',"' + table_row.find("td",scope="row").findNext("td").contents[0].encode('ascii','ignore').decode('utf-8').replace("\"","'") + '"\n')
+                    codebook.write(entry.find("dl").find("dt",text="Variable Name: ").findNext("dd").contents[0].replace(" ","") + "," + table_row.find("td",scope="row").contents[0].encode('ascii','ignore').decode('utf-8') + ',"' + table_row.find("td",scope="row").findNext("td").contents[0].encode('ascii','ignore').decode('utf-8').replace("\"","'") + '"\n')	
+        print "\t\tClosing "+ acq_dn + "/" + subfolder_name + "/" + acq_fn
+        acq.close()
+        print "\t\tClosing "+ sdd_dn + "/" + subfolder_name + "/" + codebook_fn
         sdd.close()
+        print "\t\tClosing "+ codebook_dn + "/" + subfolder_name + "/" + codebook_fn
         codebook.close()
     except:
         print "\t\tProcessing error while trying " + doc_link
@@ -543,6 +555,15 @@ for item in list_items :
     print "\tVariable List: " + variable_link
     #variable_soup = BeautifulSoup(requests.get(variable_link).text, "lxml")
     subfolder_name = item.findNext("a").contents[0].replace(" ","_")
+    if not os.path.exists(acq_dn + "/" + subfolder_name) :
+        os.makedirs(acq_dn + "/" + subfolder_name)
+    print "\t\tOpening " + acq_dn + "/" + subfolder_name + "/STD-NHANES-" + begin_year.__str__() + "-" + subfolder_name
+    std = open(acq_dn + "/" + subfolder_name + "/STD-NHANES-" + begin_year.__str__() + "-" + subfolder_name,"w")
+    print "\t\tWriting to " + acq_dn + "/" + subfolder_name + "/STD-NHANES-" + begin_year.__str__() + "-" + subfolder_name
+    std.write("Project ID,Title,Specific Aims,Significance,Number of Participants,Number of Sample IDs,Institution,Principal Investigator,PI Address,PI City,PI State,PI Zip Code,Email,PI Phone,Co-PI 1 First Name,Co-PI 1 Last Name,Co-PI 1 Email,Co-PI 2 First Name,Co-PI 2 Last Name,Co-PI 2 Email,Contact First Name,Contact Last Name,Contact Email,Project Created Date,Project Last Updated Date,DC Access?\n")
+    std.write("NHANES-" + begin_year.__str__() + "-" + subfolder_name + ",NHANES " + begin_year.__str__() + " " + subfolder_name + " Study,Specific Aims go here,Significance goes here,,,National Health and Nutrition Examination Survey,,,,,,,,,,,,,,,,,,,Yes")
+    print "\t\tClosing " + acq_dn + "/" + subfolder_name + "/STD-NHANES-" + begin_year.__str__() + "-" + subfolder_name
+    std.close()
     if not os.path.exists(codebook_dn + "/" + subfolder_name) :
         os.makedirs(codebook_dn + "/" + subfolder_name)
     if not os.path.exists(sdd_dn + "/" + subfolder_name) :
@@ -553,7 +574,7 @@ for item in list_items :
             '''parallelize from here'''                         
             doc_link = "https://wwwn.cdc.gov" + row.find("a").get("href")
             print "\tDocument: " + doc_link
-            processes.append(multiprocessing.Process(target=processSDD, args=(str(processc), doc_link, row, sdd_dn, subfolder_name, codebook_dn) ) )
+            processes.append(multiprocessing.Process(target=processSDD, args=(str(processc), doc_link, row, sdd_dn, subfolder_name, codebook_dn, acq_dn) ) )
             processes[processc].start()
             processc += 1
             
