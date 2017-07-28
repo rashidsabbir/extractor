@@ -14,6 +14,8 @@ import labkey
 from PyDictionary import PyDictionary
 import utils
 from sklearn.neighbors import LSHForest
+from Tkinter import *
+from atk import Window
 
 dict = PyDictionary()
 stemAll = utils.stemAll
@@ -89,22 +91,125 @@ for point in points.keys():
     #print points[point]
     trainX.append(points[point])
     trainY.append(point)
-   
-test = "date of decreased dentist department drug test"
-testX = stringToCoordinates(test, dimension, DimensionDict)
     
 lshf = LSHForest()
 lshf.fit(trainX)
+tests = ["this is the first test", "this is the second test"]
+#test = "volume of blood taken for test"
+testX = []
+for test in tests:
+    testX.append(stringToCoordinates(test, dimension, DimensionDict))
+n_neighbors = 5
+distances, indices = lshf.kneighbors(testX, n_neighbors=n_neighbors)
 
-distances, indices = lshf.kneighbors(testX, n_neighbors=5)
+base = Tk()
+root = Frame(base)
+root.pack()
 
-print distances
+x_index = IntVar()
+v = IntVar()
+uri = StringVar()
+lab = StringVar()
+label_contents = StringVar()
+radio_contents = [StringVar() for i in range(n_neighbors)]
+
+x_index.set(0)
+
+class SelectionWindow(object):
+    def __init__(self, **kwargs):
+        self.windowPosition()
+        self.refreshWindow()
+        
+    def printChoice(self):
+        print v.get()
+    def enterChoice(self):
+        if v.get() < n_neighbors:
+            print "selected: " + trainY[indices[x_index.get()][v.get()]]
+        else:
+            print "selected: " + uri.get() + ", " + lab.get()
+        x_index.set(x_index.get()+1)
+        for child in root.winfo_children():
+            child.destroy()
+        self.refreshWindow()
+    
+    #places window at bottom right corner
+    def windowPosition(self):
+        screenw = base.winfo_screenheight()
+        screenh = base.winfo_screenwidth()
+        winw = 600
+        winh = 240
+        x = screenw-winw
+        y = screenh-winh
+        base.geometry(('%dx%d+%d+%d' % (winw, winh, x, y)))
+        
+    def refreshWindow(self):
+        if(x_index.get() >= len(testX)):
+            base.destroy()
+            return
+        
+        label_contents.set("selection #"+str(x_index.get() + 1)+" of " + str(len(testX)) + "\n" + 
+                tests[x_index.get()])
+        Label(root, 
+              textvariable=label_contents,
+              justify = LEFT,
+              padx = 20).pack()
+        for i in range(0, n_neighbors):
+            radio_contents[i].set(trainY[indices[x_index.get()][i]])
+            Radiobutton(root, 
+                        textvariable=radio_contents[i],
+                        padx = 20, 
+                        variable=v, 
+                        command = self.printChoice,
+                        value=i).pack(anchor=W)
+        #uri = StringVar()
+        #lab = StringVar()
+        Radiobutton(root, text="Other", variable=v, value = n_neighbors).pack(anchor=W)
+        uriE = Entry(root, text = "URI", textvariable = uri)
+        labE = Entry(root, text = "Label", textvariable = lab)
+        uriE.pack(anchor=W)
+        labE.pack(anchor=W)
+        Button(root, text="Enter", command = self.enterChoice).pack(anchor=W)
+
+
+
+win = SelectionWindow()
+base.mainloop()
+
+
+'''
+for x_index in range(len(testX)):
+    v = IntVar()
+    Label(root, 
+          text="selection #"+str(x_index + 1)+" of " + str(len(testX)) + "\n" + 
+            tests[x_index],
+          justify = LEFT,
+          padx = 20).pack()
+    for i in range(0, n_neighbors):
+        Radiobutton(root, 
+                    text=trainY[indices[x_index][i]],
+                    padx = 20, 
+                    variable=v, 
+                    command = printChoice,
+                    value=i).pack(anchor=W)
+    uri = StringVar()
+    lab = StringVar()
+    Radiobutton(root, text="Other", variable=v, value = n_neighbors).pack(anchor=W)
+    uriE = Entry(root, text = "URI", textvariable = uri)
+    labE = Entry(root, text = "Label", textvariable = lab)
+    uriE.pack(anchor=W)
+    labE.pack(anchor=W)
+    
+    Button(root, text="Enter", command = enterChoice).pack(anchor=W)
+    mainloop()'''
+    
+'''
 print indices
+print "text = " + tests[0]
+print "attribute guesses:"
 for i in indices[0]:
     print trainY[i]
 
-'''
-for row in my_results['rows']:
+
     row_strs = stemAll(str(row['rdfs:label']))
     print str(row['hasURI']) + ", " + str(row['rdfs:label'])
     #print row
