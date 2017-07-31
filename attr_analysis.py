@@ -10,12 +10,21 @@
 # import and network attributes from labkey
 # requires pip install labkey, poolmanager, pydictionary
 # This script targets the client api version 0.4.0 and later
+
+#be sure to create a .netrc file (_netrc on windows) in your "home" directory
+#the contents of ~/.netrc should look like this:
+#machine chear.tw.rpi.edu
+#login <your email address>
+#password <your password>
+#also you should modify the access to .netrc to read/write exclusively for you (for security)
 import labkey
 from PyDictionary import PyDictionary
 import utils
 from sklearn.neighbors import LSHForest
 from Tkinter import *
 from atk import Window
+import os
+import time
 
 dict = PyDictionary()
 stemAll = utils.stemAll
@@ -76,10 +85,11 @@ def stringToCoordinates(str, dimension, DimensionDict):
 points = {}
 
 for row in my_results['rows']:
-    row_strs = stemAll(str(row['rdfs:label']))
-    print str(row['hasURI']) + ", " + str(row['rdfs:label'])
-    rowToPoint(str(row['rdfs:label']))
-    points[str(row['rdfs:label'])] = None
+    row_str = str(row['hasURI']) + "," + str(row['rdfs:label'])
+    #row_strs = stemAll(row_str)
+    print str(row_str)
+    rowToPoint(row_str)
+    points[str(row_str)] = None
     
 dimension = getDimensions(rowToPointDict)
 
@@ -88,18 +98,36 @@ trainY = []
 
 for point in points.keys():
     points[point] =  pointToArray(point, dimension, DimensionDict)
-    #print points[point]
     trainX.append(points[point])
     trainY.append(point)
-    
+# build the LSH forest    
 lshf = LSHForest()
 lshf.fit(trainX)
-tests = ["this is the first test", "this is the second test"]
-#test = "volume of blood taken for test"
+# direct session data to a files, a session is specific to an input file
+top_dn = "sessions_test"
+user_dn = "user"
+session_fn = "test_session.csv"
+
+if not os.path.exists(top_dn):
+    os.makedirs(top_dn)
+if not os.path.exists(top_dn + "/" + user_dn):
+    os.makedirs(top_dn + "/" + user_dn)
+
+session = open(top_dn + "/" + user_dn + "/" + session_fn,"w")
+
+#some test strings
+#tests = ["this is the first test", "this is the second test"]
+
 testX = []
+with open('sdd_t2/Examination/BMX_H_Doc-SDD.csv', 'r') as myfile:
+    f_test = myfile.read().split("\n")
+myfile.close()
+
+tests = f_test
 for test in tests:
     testX.append(stringToCoordinates(test, dimension, DimensionDict))
-n_neighbors = 5
+    
+n_neighbors = 10
 distances, indices = lshf.kneighbors(testX, n_neighbors=n_neighbors)
 
 base = Tk()
@@ -122,12 +150,23 @@ class SelectionWindow(object):
         
     def printChoice(self):
         print v.get()
-    def enterChoice(self):
-        if v.get() < n_neighbors:
-            print "selected: " + trainY[indices[x_index.get()][v.get()]]
-        else:
+    def enterChoice(self):  
+        if v.get() < n_neighbors and v.get() >= 0:
+            sel = trainY[indices[x_index.get()][v.get()]]
+            print "selected: " + sel
+            session.write(tests[x_index.get()] + "," + sel + "\n")
+            
+        if v.get() == n_neighbors:
+            sel = "none,N/A or Unknown"
+            print "selected: " + sel
+            session.write(tests[x_index.get()] + "," + sel + "\n")
+                
+        if v.get() > n_neighbors:
             print "selected: " + uri.get() + ", " + lab.get()
+            session.write(tests[x_index.get()] + "," + uri.get() + "," + lab.get() + "\n")
         x_index.set(x_index.get()+1)
+        #add selection to session data file
+        #session.write(tests[x_index.get()] + "," + uri.get() + "," + lab.get() + "\n")
         for child in root.winfo_children():
             child.destroy()
         self.refreshWindow()
@@ -137,7 +176,7 @@ class SelectionWindow(object):
         screenw = base.winfo_screenheight()
         screenh = base.winfo_screenwidth()
         winw = 600
-        winh = 240
+        winh = 500
         x = screenw-winw
         y = screenh-winh
         base.geometry(('%dx%d+%d+%d' % (winw, winh, x, y)))
@@ -149,10 +188,11 @@ class SelectionWindow(object):
         
         label_contents.set("selection #"+str(x_index.get() + 1)+" of " + str(len(testX)) + "\n" + 
                 tests[x_index.get()])
-        Label(root, 
+        Label(root, wraplength=600,
               textvariable=label_contents,
               justify = LEFT,
               padx = 20).pack()
+        Radiobutton(root, text="N/A or Unknown", variable=v, command = self.printChoice, value = n_neighbors).pack(anchor=W)
         for i in range(0, n_neighbors):
             radio_contents[i].set(trainY[indices[x_index.get()][i]])
             Radiobutton(root, 
@@ -163,7 +203,7 @@ class SelectionWindow(object):
                         value=i).pack(anchor=W)
         #uri = StringVar()
         #lab = StringVar()
-        Radiobutton(root, text="Other", variable=v, value = n_neighbors).pack(anchor=W)
+        Radiobutton(root, text="Other", variable=v, value = n_neighbors + 1).pack(anchor=W)
         uriE = Entry(root, text = "URI", textvariable = uri)
         labE = Entry(root, text = "Label", textvariable = lab)
         uriE.pack(anchor=W)
@@ -175,6 +215,7 @@ class SelectionWindow(object):
 win = SelectionWindow()
 base.mainloop()
 
+session.close()
 
 '''
 for x_index in range(len(testX)):
