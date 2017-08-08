@@ -8,5 +8,5 @@ setup(
     author = 'Ryan Sherman, Sabbir Rashid',
     author_email='rjsfox8@gmail.com',
     license='MIT',
-    scripts = ['annotation_engine', 'NHANES_extractor_exp', 'utils'],
+    scripts = ['annotation_engine.py', 'NHANES_extractor_exp.py', 'utils.py'],
     zip_safe = False)
