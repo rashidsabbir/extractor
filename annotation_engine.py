@@ -150,7 +150,7 @@ class modelRep:
                 for field in fields:
                     if row[field]: row_str = row_str + row[field].encode('utf8') + ","
                 row_str = row_str[:-1]
-                print row_str
+                #print row_str
                 self.row_strings.append(row_str)
                 str_parts = row_str.split(',')
                 if(len(str_parts) > 1):
@@ -182,10 +182,24 @@ class modelRep:
 #path = 'sdd_t2/Examination/BMX_H_Doc-SDD.csv'
 path = filepath
 dirs = path.split('/')
-#
+def enterName():
+    rt.destroy()
+# get the user's destination directory
+rt = Tk()
+userV = StringVar()
+userV.set('default')
+Label(rt, wraplength=600,
+              text='Enter the name of your session, e.g. your name',
+              justify = LEFT).pack()
+userE = Entry(rt, text = 'default', textvariable = userV)
+userE.pack()
+Button(rt, text="Enter", command = enterName).pack()
+mainloop()
+user_dn = userV.get()
+print user_dn
+
 # direct session data to files, a session is specific to an input file, and uses the same dirctory structure
 top_dn = "sessions"
-user_dn = "default"
 session_fn = path
 n_neighbors = 10
 
