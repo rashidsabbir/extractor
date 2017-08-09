@@ -11,7 +11,7 @@ setup(
     classifiers=[
 	'Development Status :: 3 - Alpha',
 	'Intended Audience :: Developers, Researchers',
-    	'Topic :: Software Development :: Semantics',]
+    	'Topic :: Software Development :: Semantics',],
     scripts = ['annotation_engine.py', 'NHANES_extractor_exp.py', 'utils.py'],
     install_requires=[
           'labkey',
