@@ -2,6 +2,10 @@
 ###*A breakdown of everything in the extractor repository*
 
 ## Installation
+Currently, installation has only been tested in Ubuntu versions 14.04 and 16.04.
+
+### Instructions
+
 run the following commands in your terminal
 > sudo apt-get install python-pip python-dev build-essential python-tk
 > sudo pip install --upgrade pip 
