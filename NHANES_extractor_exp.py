@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from stemming.lovins import stem
+#from stemming.lovins import stem
 
 import urllib
 import requests

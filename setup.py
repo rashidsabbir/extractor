@@ -9,4 +9,23 @@ setup(
     author_email='rjsfox8@gmail.com',
     license='MIT',
     scripts = ['annotation_engine.py', 'NHANES_extractor_exp.py', 'utils.py'],
+    install_requires=[
+          'labkey',
+          'PyDictionary',
+          'sklearn.neighbors',
+          'Tkinter',
+          'atk',
+          'tkFileDialog',
+          'threading',
+          'multiprocessing',
+          'traceback',
+          'operator',
+          'inflect',
+          'urllib2',
+          'csv',
+          're',
+          'requests',
+          'urllib',
+          'bs4'
+      ]
     zip_safe = False)
