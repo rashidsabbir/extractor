@@ -27,5 +27,5 @@ setup(
           'requests',
           'urllib',
           'bs4'
-      ]
+      ],
     zip_safe = False)
