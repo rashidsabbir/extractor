@@ -54,7 +54,8 @@ When the engine runs, a GUI will pop up with the first line of the given SDD alo
 The top produces a placeholder N/A, the indented middle buttons list a number of guesses and an estimate of their confidence, and the bottom button allows other input that is not specified by the other buttons.  If you wish to input an annotation not shown, type the URI in the top text box, and optionally a label for the URI in the bottom box.  On pressing "Enter", your selection will be output to a csv file under the "sessions" directory.
 
 
---------------------------
+
+____________________________________________
 
 This python code uses the Beautiful Soup package to extract codebook values and Semantic Data Dictionary (SDD) starting points from NHANES documents.
 
