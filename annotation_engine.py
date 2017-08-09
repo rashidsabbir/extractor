@@ -22,7 +22,7 @@ from PyDictionary import PyDictionary
 import utils
 from sklearn.neighbors import LSHForest
 from Tkinter import *
-from atk import Window
+#from atk import Window
 import os
 import time
 from tkFileDialog import askopenfilename

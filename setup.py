@@ -12,20 +12,15 @@ setup(
     install_requires=[
           'labkey',
           'PyDictionary',
-          'sklearn.neighbors',
-          'Tkinter',
-          'atk',
-          'tkFileDialog',
-          'threading',
+          'sklearn',
           'multiprocessing',
-          'traceback',
-          'operator',
           'inflect',
           'urllib2',
-          'csv',
-          're',
           'requests',
           'urllib',
-          'bs4'
+          'bs4',
+          'lxml',
+          'numpy',
+          'scipy'
       ],
     zip_safe = False)
