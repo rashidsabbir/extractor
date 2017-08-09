@@ -9,7 +9,9 @@ Currently, installation has only been tested in Ubuntu versions 14.04 and 16.04.
 
 run the following commands in your terminal
 > sudo apt-get install python-pip python-dev build-essential python-tk
+
 > sudo pip install --upgrade pip 
+
 > sudo pip install --upgrade virtualenv
 
 now you can either install scripts from source code, or directly through pip.
@@ -41,8 +43,11 @@ The file "annotation\_engine.py" is a script designed to streamline the annotati
 To use the annotation engine, you must have access priveleges on the CHEAR labkey server, and create a .netrc file (_netrc on windows) in your "home" directory
 the contents of ~/.netrc should look like this:
 > machine chear.tw.rpi.edu
+
 > login <your email address>
+
 > password <your password>
+
 also you should modify the permissions to .netrc to read/write exclusively for you (for security)
 
 When the engine runs, a GUI will pop up with the first line of the given SDD along with some information, and a set of radio buttons with different options are presented.  The column header of the SDD you are annotating will appear at the top, and the row below it.  The radio buttons include 3 types:
