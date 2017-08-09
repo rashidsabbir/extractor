@@ -29,7 +29,7 @@ Change directory to extractor
 And install
 > sudo -H pip install -e .
 
-Now the NHANES\_extractor\_exp.py and annotation\_engine.py scripts are ready to run from the terminal.
+Now the NHANES\_extractor\_exp.py script is ready to run from the terminal, The  annotation\_engine.py script requires a few more steps detailed below.
 
 
 ## NHANES Extractor
@@ -40,21 +40,21 @@ The "NHANES\_extractor\_exp.py" script is more advanced and accurate, so in gene
 ## Annotation Engine
 The file "annotation\_engine.py" is a script designed to streamline the annotation process with a graphical user interface.  It extracts information about relevant ontologies from online sources and computes a number of guesses as to the appropriate annotations for any given line in an input SDD file.
 
-To use the annotation engine, you must have access priveleges on the CHEAR labkey server, and create a .netrc file (_netrc on windows) in your "home" directory
-the contents of ~/.netrc should look like this:
+To use the annotation engine, you must have access priveleges on the CHEAR labkey server.  Using your account details, create a .netrc file (_netrc on windows) in your "home" directory.
+The contents of ~/.netrc should look like this:
 > machine chear.tw.rpi.edu
 
 > login <your email address>
 
 > password <your password>
 
-also you should modify the permissions to .netrc to read/write exclusively for you (for security)
+You may wish to modify the permissions to .netrc to read/write exclusively for you (for security)
 
 When the engine runs, a GUI will pop up with the first line of the given SDD along with some information, and a set of radio buttons with different options are presented.  The column header of the SDD you are annotating will appear at the top, and the row below it.  The radio buttons include 3 types:
 The top produces a placeholder N/A, the indented middle buttons list a number of guesses and an estimate of their confidence, and the bottom button allows other input that is not specified by the other buttons.  If you wish to input an annotation not shown, type the URI in the top text box, and optionally a label for the URI in the bottom box.  On pressing "Enter", your selection will be output to a csv file under the "sessions" directory.
 
 
-
+--------------------------
 
 This python code uses the Beautiful Soup package to extract codebook values and Semantic Data Dictionary (SDD) starting points from NHANES documents.
 
