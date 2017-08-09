@@ -1,6 +1,26 @@
 #README
 ###*A breakdown of everything in the extractor repository*
 
+## Installation
+run the following commands in your terminal
+> sudo apt-get install python-pip python-dev build-essential python-tk
+> sudo pip install --upgrade pip 
+> sudo pip install --upgrade virtualenv
+
+now you can either install scripts from source code, or directly through pip.
+
+#### From source:
+Install git, from the terminal:
+> sudo apt-get install git
+Change to your desired installation directory in the terminal, and then run
+> git clone https://github.com/rashidsabbir/extractor.git
+Change directory to extractor
+> cd extractor
+And install
+> sudo -H pip install -e .
+Now the NHANES\_extractor\_exp.py and annotation\_engine.py scripts are ready to run from the terminal.
+
+
 ##NHANES Extractor
 The files "NHANES\_extractor.py" and "NHANES\_extractor\_exp.py" automatically extract semantic data dictionaries, codebooks, and acq files from web-based sources.  The automatically extracted SDDs are incomplete and the entries given may not always be correct however, so human annotation is still necessary.  For information about how to annotate SDD files, please see "annotation\_instructions.md".
 
