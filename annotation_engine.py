@@ -1,3 +1,4 @@
+#!/usr/bin/python
 '''general approach:
     construct a high-dimension space of meaning for the various attributes under consideration
     develop algorithms to map an input string to a point in this space
