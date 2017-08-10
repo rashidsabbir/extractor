@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name = 'NHANES-semantic-data-dictionary-annotation',
-    version = '1.0.0',
+    version = '1.0.1',
     description = 'Scripts for extracting semantic data dictionaries from NHANES data',
     url = 'https://github.com/rashidsabbir/extractor',
     author = 'Ryan Sherman, Sabbir Rashid',
