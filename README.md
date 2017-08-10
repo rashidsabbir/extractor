@@ -16,6 +16,10 @@ run the following commands in your terminal
 
 now you can either install scripts from source code, or directly through pip.
 
+#### Via pip:
+To install via pip, simply run the command
+>pip install NHANES\_semantic\_data\_dictionary\_annotation -e
+
 #### From source:
 Install git, from the terminal:
 > sudo apt-get install git
