@@ -2,7 +2,7 @@
 
 ## How to update the pip installation proceedure
 
-Currently, the package on pypi is registered to Ryan Sherman.  If you would like to update the pypi package you may need to contact him for permission.  Alternatively, you can change the "name" argument in setup.py to create a different package under your own ownership.
+Currently, the package on pypi is registered to Ryan Sherman, and co-owned by Sabbir Rashid.  If you would like to update the pypi package you may need to contact one of them for permission.  Alternatively, you can change the "name" argument in setup.py to create a different package under your own ownership.
 
 A full tutorial for uploading to pypi is available here, look through it first for information on registering an account and creating a .pypirc file:
 
