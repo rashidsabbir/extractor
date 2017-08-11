@@ -11,9 +11,12 @@ https://packaging.python.org/tutorials/distributing-packages/
 After initial setup, the normal proceedure is as follows:
 1) Make your changes to source files
 2) Update setup.py:
-	-make sure to add any newly required pip-installable dependencies to the 		install_requires argument to setup
+	-make sure to add any newly required pip-installable dependencies to the install_requires argument to setup
+	
 	-Iterate the version number in setup.py
-	-If you want to add any new scripts, add them to the scripts argument to 		setup
+	
+	-If you want to add any new scripts, add them to the scripts argument to setup
+	
 3) Build the new distribution
 	> sudo python setup.py sdist
 4) Upload with twine
