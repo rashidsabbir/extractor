@@ -8,13 +8,15 @@ A full tutorial for uploading to pypi is available here, look through it first f
 
 https://packaging.python.org/tutorials/distributing-packages/
 
+Make sure you have registered an account on pypi, gotten permission to upload new versions, and filled out a .pypirc file under your home directory, and now you can add updates by the normal proceedure.
+
 After initial setup, the normal proceedure is as follows:
 1) Make your changes to source files
 2) Update setup.py:
 
 	-make sure to add any newly required pip-installable dependencies to the install_requires argument to setup
 	
-	-Iterate the version number in setup.py
+	-Iterate the version number in setup.py (e.g. change 0.1.1 to 0.1.2)
 	
 	-If you want to add any new scripts, add them to the scripts argument to setup
 	
