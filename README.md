@@ -71,7 +71,7 @@ You will encounter two dialog boxes, the first asks you to select an SDD file (a
 When the engine runs, a GUI will pop up with the first line of the given SDD along with some information, and a set of radio buttons with different options are presented.  The column header of the SDD you are annotating will appear at the top, and the row below it.  The radio buttons include 4 types:
 The top produces a placeholder N/A, the indented middle buttons list a number of guesses and an estimate of their confidence, the last entry in the indented section is any non-empty entry that was in the original cell, and the bottom button allows other input that is not specified by the other buttons.  If you wish to input an annotation not shown, type the URI in the top text box, and optionally a label for the URI in the bottom box.  On pressing "Enter", your selection will be output to a csv file under the "sessions" directory.
 
-If you exit the annotation engine before the it terminates by itself, 
+If you exit the annotation engine before it terminates by itself, all entries you have made so far will still be contained in the associated csv file.
 
 
 

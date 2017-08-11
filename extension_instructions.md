@@ -39,7 +39,7 @@ Additionally, other databases could be accessed for the same types of data, alth
 
 ### Improved annotation recommendations
 The current model for recommending annotations is fairly simple:
-Strings corresponding to each database entry are placed in a high-dimensional space based on word frequencies.  These points are placed in an LSH Forest (this is essentially a fast nearest-neighbors implementation for high dimensions).  Then, strings from each row in an SDD placed in the same space, and a number of nearest neighbors are found along with their cosine distances.
+Strings corresponding to each database entry are placed in a high-dimensional space based on word frequencies.  These points are placed in an LSH Forest (this is essentially a fast approximate nearest-neighbors implementation for high dimensions).  Then, strings from each row in an SDD placed in the same space, and a number of nearest neighbors are found along with their cosine distances.
 
 Some details about possible improvements via machine learning are listed at the top of the recommendation\_engine.py file.
 
