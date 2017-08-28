@@ -7,3 +7,9 @@ pip install stemming
 pip install requests
 pip install inflect
 apt-get install python-tk
+apt install twine
+apt-get install python3-setuptools
+pip install labkey
+pip install PyDictionary
+pip install sklearn
+pip install scipy
